@@ -1,0 +1,13 @@
+FTC_789 -- Ishraq Mahid, Ryan Wang, Naomi Naranjo, Shriya Anand
+SoftDev
+PO4 -- FTC_789's Devlog
+2022-05-27
+
+IshraqM -- 2022-05-24 08:00
+Initialized project
+
+ShriyaA - 2022-05-25 08:00
+Flag
+
+IshraqM -- 2022-05-27 08:00
+Dev log added. Dev log now has ship date and clarifies notes + greyed out extra stuff
