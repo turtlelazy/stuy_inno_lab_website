@@ -15,7 +15,12 @@ function daysInMonth(month,year){
     return date.getDate();
 }
 
-function updateCalendar(month,year){
+function updateCalendar(){
+    var month = document.getElementById('input_month').value;
+    var year = document.getElementById('input_year').value;
+    console.log(month);
+    console.log(year);
+
     calendarTable = document.getElementById("calendar");
 
     let calendarTableContents = '';
@@ -26,7 +31,6 @@ function updateCalendar(month,year){
 
     let firstDayNumber = firstDay(month,year);
     let dayCount = daysInMonth(month,year);
-
 
     let monthArrayObject = monthArray(firstDayNumber,dayCount);
     calendarTableContents = header;
