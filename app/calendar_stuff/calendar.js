@@ -19,7 +19,7 @@ function updateCalendar(month,year){
     calendarTable = document.getElementById("calendar");
 
     let calendarTableContents = '';
-    
+
     daysOfTheWeek = ["Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday"];
     let header = formatTableLine(daysOfTheWeek,true);
     console.log(header);
