@@ -16,8 +16,8 @@ function daysInMonth(month,year){
 }
 
 function updateCalendar(){
-    var month = document.getElementById('input_month').value;
-    var year = document.getElementById('input_year').value;
+    // var month = document.getElementById('input_month').value;
+    // var year = document.getElementById('input_year').value;
     console.log(month);
     console.log(year);
 
@@ -88,3 +88,39 @@ function formatTableLine(array,isHeader){
 
     return line;
 }
+
+function updateMonthYear(changeMonth){
+  if (month == 1 && changeMonth == -1){
+    month = 12;
+    year -= 1;
+  }
+  if (month == 12 && changeMonth == +1){
+    month = 1;
+    year += 1;
+  }
+  month += changeMonth;
+}
+
+function goPastMonth(){
+  updateMonthYear(-1)
+  updateCalendar()
+}
+
+function goCurrentMonth(){
+  month = presentMonth;
+  year = presentYear;
+  updateCalendar()
+}
+
+function goNextMonth(){
+  updateMonthYear(1)
+  updateCalendar()
+}
+
+var presentMonth = 5;     // add function to get present Month
+var presentYear = 2022;   // add function to get present Year
+var month = presentMonth;
+var year = presentYear;
+document.getElementById("pastMonth").addEventListener("click", goPastMonth);
+document.getElementById("currentMonth").addEventListener("click", goCurrentMonth);
+document.getElementById("nextMonth").addEventListener("click", goNextMonth);
