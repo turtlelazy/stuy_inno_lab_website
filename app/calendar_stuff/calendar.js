@@ -18,8 +18,8 @@ function daysInMonth(month,year){
 function updateCalendar(){
     // var month = document.getElementById('input_month').value;
     // var year = document.getElementById('input_year').value;
-    console.log(month);
-    console.log(year);
+    console.log("month: " + month);
+    console.log("year: " + year);
 
     calendarTable = document.getElementById("calendar");
 
@@ -94,7 +94,7 @@ function updateMonthYear(changeMonth){
     month = 12;
     year -= 1;
   }
-  if (month == 12 && changeMonth == +1){
+  else if (month == 12 && changeMonth == +1){
     month = 1;
     year += 1;
   }
@@ -119,8 +119,8 @@ function goNextMonth(){
   updateCalendar()
 }
 
-var presentMonth = 5;     // add function to get present Month
-var presentYear = 2022;   // add function to get present Year
+var presentMonth = 5;     // should add function to get present Month
+var presentYear = 2022;   // should add function to get present Year
 var month = presentMonth;
 var year = presentYear;
 goCurrentMonth();
