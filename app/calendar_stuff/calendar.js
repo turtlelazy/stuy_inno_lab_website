@@ -85,3 +85,24 @@ function formatTableLine(array,isHeader){
 
     return line;
 }
+
+
+let test_data = [];
+
+for(let i = 1; i < 32; i++){
+    let test_day_JSON = {
+        "first_period":"None",
+        "second_period":"Scott Thomas",
+        "third_period":"Someone Else",
+        "fourth_period":"None",
+        "fifth_period":"None",
+        "sixth_period":"Joseph Blay",
+        "seventh_period":"Joseph Blay",
+        "eight_period":"Scott Thomas",
+        "ninth_period":"None",
+        "tenth_period":"Scott Thomas",
+        "after_school":{"teacher":"Scott Thomas","time":i%3}
+    }
+    
+    test_data.push(test_day_JSON);
+}
