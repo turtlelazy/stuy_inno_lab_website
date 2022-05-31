@@ -121,6 +121,7 @@ var presentMonth = 5;     // add function to get present Month
 var presentYear = 2022;   // add function to get present Year
 var month = presentMonth;
 var year = presentYear;
+goCurrentMonth();
 document.getElementById("pastMonth").addEventListener("click", goPastMonth);
 document.getElementById("currentMonth").addEventListener("click", goCurrentMonth);
 document.getElementById("nextMonth").addEventListener("click", goNextMonth);
