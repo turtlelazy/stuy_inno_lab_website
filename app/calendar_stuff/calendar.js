@@ -98,7 +98,9 @@ function updateMonthYear(changeMonth){
     month = 1;
     year += 1;
   }
-  month += changeMonth;
+  else {
+    month += changeMonth;
+  }
 }
 
 function goPastMonth(){
