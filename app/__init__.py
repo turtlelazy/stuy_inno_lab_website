@@ -1,6 +1,11 @@
 from flask import Flask, render_template, request
 app = Flask(__name__)
 
+dict =	{
+  "3D printer": 0,
+  "Laser cutter": 0,
+  "another machine": 0
+}
 
 
 @app.route("/", methods=["GET","POST"])
@@ -21,9 +26,15 @@ def machine():
 @app.route("/confirmation", methods=["GET","POST"])
 def confirmation():
     print(request.args["machineName"]== "3D printer")
-
+    print("HELLO" + str(dict[request.args["machineName"]]))
     try:
         int(request.args["time"])
+        if (dict[request.args["machineName"]] == 0):
+            dict[request.args["machineName"]] = int(request.args["time"])
+        else:
+            return render_template("waitlist.html")
+        print(dict[request.args["machineName"]])
+
     except:
         if (request.args['machineName'] == "3D printer"):
             return render_template("machine.html", printer = "checked")
