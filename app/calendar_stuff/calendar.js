@@ -90,6 +90,7 @@ function formatTableLine(array,isHeader){
 }
 
 function updateMonthYear(changeMonth){
+  // changeMonth is only expected to be -1, 0, or 1
   if (changeMonth == 0){
     month = presentMonth;
     year = presentYear;
@@ -109,6 +110,8 @@ function updateMonthYear(changeMonth){
 }
 
 var presentMonth = 5;     // should add function to get present Month
+// const presentMonth = new Date().getMonth() + 1;
+// console.log(presentMonth); // 👉️ 10
 var presentYear = 2022;   // should add function to get present Year
 var month = presentMonth;
 var year = presentYear;
