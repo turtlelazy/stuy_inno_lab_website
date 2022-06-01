@@ -90,7 +90,11 @@ function formatTableLine(array,isHeader){
 }
 
 function updateMonthYear(changeMonth){
-  if (month == 1 && changeMonth == -1){
+  if (changeMonth == 0){
+    month = presentMonth;
+    year = presentYear;
+  }
+  else if (month == 1 && changeMonth == -1){
     month = 12;
     year -= 1;
   }
@@ -101,21 +105,6 @@ function updateMonthYear(changeMonth){
   else {
     month += changeMonth;
   }
-}
-
-function goPastMonth(){
-  updateMonthYear(-1)
-  updateCalendar()
-}
-
-function goCurrentMonth(){
-  month = presentMonth;
-  year = presentYear;
-  updateCalendar()
-}
-
-function goNextMonth(){
-  updateMonthYear(1)
   updateCalendar()
 }
 
@@ -123,7 +112,7 @@ var presentMonth = 5;     // should add function to get present Month
 var presentYear = 2022;   // should add function to get present Year
 var month = presentMonth;
 var year = presentYear;
-goCurrentMonth();
-document.getElementById("pastMonth").addEventListener("click", goPastMonth);
-document.getElementById("currentMonth").addEventListener("click", goCurrentMonth);
-document.getElementById("nextMonth").addEventListener("click", goNextMonth);
+
+document.getElementById("pastMonth").addEventListener("click", function(e){updateMonthYear(-1)});
+document.getElementById("currentMonth").addEventListener("click", function(e){updateMonthYear(0)});
+document.getElementById("nextMonth").addEventListener("click", function(e){updateMonthYear(1)});
