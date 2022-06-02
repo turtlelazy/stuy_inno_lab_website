@@ -72,18 +72,19 @@ function monthArray(firstDay,dayCount){
 }
 
 function formatTableLine(array,isHeader){
-    let tag = "<td>";
+    let tag = "<td";
     let tagClose = "</td>";
 
     if(isHeader) {
-        tag = "<th>";
+        tag = "<th";
         tagClose = "</th>";
     }
 
     let line = "<tr>";
 
     for(let item = 0;item < array.length;item++){
-        line += tag + array[item] + tagClose;
+        //line += tag + f"id = ''" +array[item] + tagClose;
+        line += `${tag} id='${array[item]}'> ${array[item]} ${tagClose}`
     }
 
     line += "</tr>"
@@ -121,3 +122,24 @@ updateCalendar(0)
 document.getElementById("pastMonth").addEventListener("click", function(e){updateMonthYear(-1)});
 document.getElementById("currentMonth").addEventListener("click", function(e){updateMonthYear(0)});
 document.getElementById("nextMonth").addEventListener("click", function(e){updateMonthYear(1)});
+
+
+let test_data = [];
+
+for(let i = 1; i < 32; i++){
+    let test_day_JSON = {
+        "first_period":"None",
+        "second_period":"Scott Thomas",
+        "third_period":"Someone Else",
+        "fourth_period":"None",
+        "fifth_period":"None",
+        "sixth_period":"Joseph Blay",
+        "seventh_period":"Joseph Blay",
+        "eight_period":"Scott Thomas",
+        "ninth_period":"None",
+        "tenth_period":"Scott Thomas",
+        "after_school":{"teacher":"Scott Thomas","time":i%3}
+    }
+
+    test_data.push(test_day_JSON);
+}

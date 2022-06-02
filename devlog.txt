@@ -1,0 +1,19 @@
+FTC_789 -- Ishraq Mahid, Ryan Wang, Naomi Naranjo, Shriya Anand
+SoftDev
+PO4 -- FTC_789's Devlog
+2022-05-27
+
+IshraqM -- 2022-05-24 08:00
+Initialized project
+
+ShriyaA - 2022-05-25 08:00
+Flag
+
+IshraqM -- 2022-05-27 08:00
+Dev log added. Dev log now has ship date and clarifies notes + greyed out extra stuff
+
+IshraqM -2022-05-28 12:00
+Basic calendar generator created with vanilla JS and HTML.
+
+IshraqM - 2022-06-01 21:00
+DB management work. DB supports user management, including hashing of passwords. Launch codes in place and README Organization
