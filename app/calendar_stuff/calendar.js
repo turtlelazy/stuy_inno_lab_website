@@ -4,7 +4,7 @@ function firstDay(month,year){
     return date.getDay();
 }
 
-function getMonth(month){
+function getMonthName(month){
     const options = { month: 'long' };
     let date = new Date(1,month - 1)
     return new Intl.DateTimeFormat('en-US',options).format(date);
@@ -43,7 +43,7 @@ function updateCalendar(){
     calendarTable.innerHTML = calendarTableContents;
 
     let calendarHeader = document.getElementById("month_year");
-    calendarHeader.innerHTML = getMonth(month) + " " + year;
+    calendarHeader.innerHTML = getMonthName(month) + " " + year;
 
 }
 
@@ -112,10 +112,10 @@ function updateMonthYear(changeMonth){
   updateCalendar()
 }
 
-var presentMonth = 5;     // should add function to get present Month
-// const presentMonth = new Date().getMonth() + 1;
-// console.log(presentMonth); // 👉️ 10
-var presentYear = 2022;   // should add function to get present Year
+var today = new Date();
+var presentMonth = today.getMonth() + 1;
+var presentYear = today.getFullYear();
+
 var month = presentMonth;
 var year = presentYear;
 updateCalendar(0)
