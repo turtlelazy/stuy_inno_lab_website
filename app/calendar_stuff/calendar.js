@@ -10,6 +10,7 @@ function getMonth(month){
     return new Intl.DateTimeFormat('en-US',options).format(date);
 }
 
+
 function daysInMonth(month,year){
     let date = new Date(year,month,0);
     return date.getDate();
@@ -41,8 +42,9 @@ function updateCalendar(){
 
     calendarTable.innerHTML = calendarTableContents;
 
-    let calendarHeader = document.getElementById("month");
-    calendarHeader.innerHTML = getMonth(month);
+    let calendarHeader = document.getElementById("month_year");
+    calendarHeader.innerHTML = getMonth(month) + " " + year;
+
 }
 
 function weekArray(sundayStart,maxDate){
@@ -115,7 +117,7 @@ var presentMonth = 5;     // should add function to get present Month
 var presentYear = 2022;   // should add function to get present Year
 var month = presentMonth;
 var year = presentYear;
-
+updateCalendar(0)
 document.getElementById("pastMonth").addEventListener("click", function(e){updateMonthYear(-1)});
 document.getElementById("currentMonth").addEventListener("click", function(e){updateMonthYear(0)});
 document.getElementById("nextMonth").addEventListener("click", function(e){updateMonthYear(1)});
