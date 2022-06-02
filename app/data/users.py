@@ -1,4 +1,4 @@
-from data_functions import users
+from data.data_functions import users
 import bcrypt as b
 
 
@@ -13,7 +13,7 @@ def create_user(username,password,user_type):
         return False
     
     salt = b.gensalt()
-    hashed = b.hashpw(password,salt)
+    hashed = b.hashpw(password.encode('utf-8'), salt)
 
     users.add_values([username,hashed,salt,user_type])
     return True
@@ -28,6 +28,6 @@ def verify_user(username,password):
         return False
 
     salt = get_salt(username)
-    hashed = b.hashpw(password,salt)
-    
+    hashed = b.hashpw(password.encode('utf-8'), salt)
+
     return get_hash(username) == hashed
