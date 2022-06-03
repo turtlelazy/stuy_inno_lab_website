@@ -26,3 +26,6 @@ Refined updating-calendar buttons by having them show upon loading, fixing Dec/J
 
 RyanW -- 2022-06-02 08:00
 Finalized calendar_UI branch and resolved conflicts into merging into main.
+
+RyanW -- 2022-06-02 10:30
+Created skeleton of calendar CSS on new branch calendar_CSS. 
