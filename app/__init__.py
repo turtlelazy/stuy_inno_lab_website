@@ -1,5 +1,12 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
+
+from data.users import user_exists, verify_user, create_user
+from os import urandom
+from data.data_functions import *
+reset_data()
 app = Flask(__name__)
+debug = True
+app.secret_key = urandom(32)
 
 dict =	{
   "3D printer": 0,
@@ -8,9 +15,21 @@ dict =	{
 }
 
 
+# @app.route("/", methods=["GET","POST"])
+# def home():
+#     return render_template("machinelist.html")
+
+
 @app.route("/", methods=["GET","POST"])
-def home():
-    return render_template("machinelist.html")
+@app.route("/index", methods=["GET","POST"])
+def index():
+    if session.get('username') is not None:
+        user = session['username']
+        # return render_template("profile.html", user=user)
+        return render_template("machinelist.html")
+
+    else:
+        return render_template("machinelist.html")
 
 
 
@@ -32,7 +51,7 @@ def confirmation():
         if (dict[request.args["machineName"]] == 0):
             dict[request.args["machineName"]] = int(request.args["time"])
         else:
-            return render_template("waitlist.html")
+            return render_template("waitlist.html", machineName = request.args["machineName"])
         print(dict[request.args["machineName"]])
 
     except:
@@ -46,6 +65,74 @@ def confirmation():
     return render_template("confirmation.html")
     print(type(request.args["time"]))
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if "username" in session:
+        return redirect(url_for("index"))
+
+    # GET request: display the form
+    if request.method == "GET":
+        return render_template("register.html")
+
+    if request.method == "POST":
+
+        # POST request: handle the form response and redirect
+        username = request.form.get("name", default="")
+        password = request.form.get("password", default="")
+        password2 = request.form.get("password2", default="")
+
+        error = None
+
+        if password != password2:
+            print("bad")
+            error = "Error: Passwords Must Match"
+        
+        if error:
+            return render_template("register.html", error=error)
+        
+        if user_exists(username):
+            error = "Username already in use"
+    
+        if error:
+            return render_template("register.html", error=error)
+        else:
+            create_user(username, password, "not admin")
+            print(username)
+            print(password)
+            return redirect(url_for("login"))
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    # if "username" in session:
+    #     return redirect(url_for("index"))
+
+    if request.method == "GET":
+        return render_template("login.html")
+    
+    if request.method == "POST":
+        username = request.form.get("name", default = "")
+        password = request.form.get("password", default="")
+
+        if not user_exists(username):
+            error = "Username does not exist"
+            return render_template('login.html', error=error)
+        
+        else:
+            if not verify_user(username, password):
+                error = "Incorrect Password"
+                return render_template('login.html', error=error)
+            else:
+                session['username'] = username
+                return redirect(url_for("index"))
+
+
+
+
+
+
+# @app.route("/waitlistConfirmation", methods=["GET","POST"])
+# def waitlistConfirmation():
+    
 
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified

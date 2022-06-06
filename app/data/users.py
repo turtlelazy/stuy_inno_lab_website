@@ -31,3 +31,6 @@ def verify_user(username,password):
     hashed = b.hashpw(password.encode('utf-8'), salt)
 
     return get_hash(username) == hashed
+
+
+# print(user_exists("foo"))
