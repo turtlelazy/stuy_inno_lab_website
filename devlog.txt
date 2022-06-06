@@ -12,20 +12,32 @@ Flag
 IshraqM -- 2022-05-27 08:00
 Dev log added. Dev log now has ship date and clarifies notes + greyed out extra stuff
 
+ShriyaA - 2022-05-27 08:00
+Created the basic machine templates that leads to the respective forms
+
 IshraqM - 2022-05-28 12:00
 Basic calendar generator created with vanilla JS and HTML.
 
 RyanW -- 2022-05-28 08:00
 Added basics of an updating-calendar buttons on a separate branch: calendar_UI
 
+ShriyaA - 2022-05-28 08:00
+Worked on the forms for each machine (auto updating text based off radio buttons) and taking text input
+
 IshraqM - 2022-06-01 21:00
 DB management work. DB supports user management, including hashing of passwords. Launch codes in place and README Organization
+
+ShriyaA - 2022-06-01 08:00
+Worked on the confirmation html and respective python code
 
 RyanW -- 2022-05-31 08:00
 Refined updating-calendar buttons by having them show upon loading, fixing Dec/Jan bugs, and cleaner refactoring.
 
 RyanW -- 2022-06-02 08:00
 Finalized calendar_UI branch and resolved conflicts into merging into main.
+
+ShriyaA - 2022-06-02 08:00
+Figured out sending out email through python
 
 IshraqM -- 2022-06-05 22:43
 Calendar allows for selecting days and seeing day schedule -> need to move to stage where db incoprortes machine and day info
