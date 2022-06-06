@@ -1,5 +1,12 @@
-<<<<<<< HEAD
 from flask import Flask, render_template, request, session, redirect, url_for
+
+import os
+import smtplib
+import imghdr
+
+import json
+import time
+import sendemail
 
 from data.users import user_exists, verify_user, create_user
 from os import urandom
@@ -8,19 +15,7 @@ reset_data()
 app = Flask(__name__)
 debug = True
 app.secret_key = urandom(32)
-=======
-from flask import Flask, render_template, request
-from flask_mail import Mail, Message
-app = Flask(__name__)
-import os
-import smtplib
-import imghdr
-from flask_mail import Mail, Message
-import json
-import time
-import sendemail
 
->>>>>>> 555a121f25a0df16bad8a8d27e6d2a5a83da3778
 
 dict =	{
   "3D-printer": 0,
@@ -84,7 +79,6 @@ def confirmation():
     return render_template("confirmation.html")
     print(type(request.args["time"]))
 
-<<<<<<< HEAD
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if "username" in session:
@@ -153,7 +147,6 @@ def login():
 # @app.route("/waitlistConfirmation", methods=["GET","POST"])
 # def waitlistConfirmation():
     
-=======
 @app.route("/waitlistConfirmation", methods=["GET","POST"])
 def waitlistConfirmation():
     if (waitlist[ request.args["machineName"]] == "no"):
@@ -181,7 +174,6 @@ def signOut():
     sendemail.send(waitlist[request.args["machineName"]], "You may use the machine now")
     waitlist[request.args["machineName"]] = "no"
     return("sign out successful")
->>>>>>> 555a121f25a0df16bad8a8d27e6d2a5a83da3778
 
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
