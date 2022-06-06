@@ -4,7 +4,7 @@ function firstDay(month,year){
     return date.getDay();
 }
 
-function getMonth(month){
+function getMonthName(month){
     const options = { month: 'long' };
     let date = new Date(1,month - 1)
     return new Intl.DateTimeFormat('en-US',options).format(date);
@@ -27,7 +27,7 @@ function updateCalendar(){
     let calendarTableContents = '';
 
     daysOfTheWeek = ["Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday"];
-    let header = formatTableLine(daysOfTheWeek,true);
+    let header = formatTableLine(daysOfTheWeek,true,"");
     console.log(header);
 
     let firstDayNumber = firstDay(month,year);
@@ -37,13 +37,13 @@ function updateCalendar(){
     calendarTableContents = header;
 
     for (let week = 0; week < monthArrayObject.length;week++){
-        calendarTableContents += formatTableLine(monthArrayObject[week]);
+        calendarTableContents += formatTableLine(monthArrayObject[week],false,"calendarItem");
     }
 
     calendarTable.innerHTML = calendarTableContents;
 
     let calendarHeader = document.getElementById("month_year");
-    calendarHeader.innerHTML = getMonth(month) + " " + year;
+    calendarHeader.innerHTML = getMonthName(month) + " " + year;
 
 }
 
@@ -71,7 +71,10 @@ function monthArray(firstDay,dayCount){
     return monthArray;
 }
 
-function formatTableLine(array,isHeader){
+function formatTableLine(array,isHeader, insertClass){
+    if(insertClass == undefined){
+        insertClass = "";
+    }
     let tag = "<td";
     let tagClose = "</td>";
 
@@ -84,7 +87,7 @@ function formatTableLine(array,isHeader){
 
     for(let item = 0;item < array.length;item++){
         //line += tag + f"id = ''" +array[item] + tagClose;
-        line += `${tag} id='${array[item]}'> ${array[item]} ${tagClose}`
+        line += `${tag} id='${array[item]}' class='${insertClass}'> ${array[item]} ${tagClose}`
     }
 
     line += "</tr>"
@@ -112,17 +115,16 @@ function updateMonthYear(changeMonth){
   updateCalendar()
 }
 
-var presentMonth = 5;     // should add function to get present Month
-// const presentMonth = new Date().getMonth() + 1;
-// console.log(presentMonth); // 👉️ 10
-var presentYear = 2022;   // should add function to get present Year
+var today = new Date();
+var presentMonth = today.getMonth() + 1;
+var presentYear = today.getFullYear();
+
 var month = presentMonth;
 var year = presentYear;
 updateCalendar(0)
 document.getElementById("pastMonth").addEventListener("click", function(e){updateMonthYear(-1)});
 document.getElementById("currentMonth").addEventListener("click", function(e){updateMonthYear(0)});
 document.getElementById("nextMonth").addEventListener("click", function(e){updateMonthYear(1)});
-
 
 let test_data = [];
 
@@ -138,8 +140,34 @@ for(let i = 1; i < 32; i++){
         "eight_period":"Scott Thomas",
         "ninth_period":"None",
         "tenth_period":"Scott Thomas",
-        "after_school":{"teacher":"Scott Thomas","time":i%3}
+        "after_school":"Scott Thomas " + `${i%3}`
     }
 
     test_data.push(test_day_JSON);
+}
+
+
+
+let highlightedDay = "1";
+
+function daySelect(event){
+    document.getElementById(highlightedDay).style.backgroundColor = "white";
+    highlightedDay = (event.target.id);
+    console.log(highlightedDay);
+    document.getElementById(highlightedDay).style.backgroundColor = "yellow";
+    document.getElementById("schedule").innerHTML = dayScheduleFormatter(test_data[parseInt(highlightedDay)]);
+}
+
+let calendarDays = document.getElementsByClassName("calendarItem");
+
+function dayScheduleFormatter(day_JSON) {
+    tableData = formatTableLine(["Period", "Teacher"], true);
+    for(const key in day_JSON){
+        tableData += formatTableLine([key,day_JSON[key]],false);
+    }
+    return tableData;
+}
+
+for(let day = 0; day < calendarDays.length;day++){
+    calendarDays[day].addEventListener("click", daySelect);
 }

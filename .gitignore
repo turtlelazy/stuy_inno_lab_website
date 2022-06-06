@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+sendemail.py
+
 # C extensions
 *.so
 
@@ -131,3 +134,5 @@ dmypy.json
 .DS_Store
 
 app/test.py
+
+.vscode
