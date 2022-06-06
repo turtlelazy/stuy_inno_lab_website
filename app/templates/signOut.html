@@ -1,8 +1,8 @@
 <html>
 <body>
-  <form action = "/confirmation">
+  <form action = "/signOut">
 
-    Who is using the <span id = "mt"> machine </span>
+    Please submit if you are done using the <span id = "mt"> machine </span>
     <br>
     <br>
     <input type="text" name="user">
@@ -11,17 +11,14 @@
     <div id = "container">
         <input type="radio" id="3D-printer" name="machineName" value="3D-printer" onchange="getValue(this)" {{printer}}>
         <label for="3D-printer">3D-printer</label><br>
-        <input type="radio" id="laser-cutter" name="machineName" value="laser-cutter" onchange="getValue(this)" {{laserCutter}}>
-        <label for="laser-cutter">laser-cutter</label><br>
-        <input type="radio" id="another machine" name="machineName" value="another machine" onchange="getValue(this)" {{anotherMachine}}>
+        <input type="radio" id="laser cutter" name="machineName" value="Laser-cutter" onchange="getValue(this)" {{laserCutter}}>
+        <label for="laser cutter">LASER CUTTER</label><br>
+        <input type="radio" id="another machine" name="machineName" value="another-machine" onchange="getValue(this)" {{anotherMachine}}>
         <label for="another machine">ANOTHER MACHINE</label>
         <br>
     </div>
     <br>
-    How long are you using the <span id = "mt"> machine </span> for?
     <br>
-    <br>
-    <input type="text" name="time">
     <br>
     <br>
     <input type="submit" name="submit" value= "submit">
@@ -35,8 +32,8 @@
   if (document.getElementById('3D-printer').checked){
     output.innerHTML = "3D-printer";
   }
-  if (document.getElementById('laser-cutter').checked){
-    output.innerHTML = "laser-cutter";
+  if (document.getElementById('laser cutter').checked){
+    output.innerHTML = "LASER CUTTER";
   }
   if (document.getElementById('another machine').checked){
     output.innerHTML = "ANOTHER MACHINE";
