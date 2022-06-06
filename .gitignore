@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+
+sendemail.py
+
 # C extensions
 *.so
 
