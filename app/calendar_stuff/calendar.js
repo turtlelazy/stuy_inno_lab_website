@@ -27,7 +27,7 @@ function updateCalendar(){
     let calendarTableContents = '';
 
     daysOfTheWeek = ["Sunday","Monday","Tuesday", "Wednesday","Thursday","Friday","Saturday"];
-    let header = formatTableLine(daysOfTheWeek,true);
+    let header = formatTableLine(daysOfTheWeek,true,"");
     console.log(header);
 
     let firstDayNumber = firstDay(month,year);
@@ -37,7 +37,7 @@ function updateCalendar(){
     calendarTableContents = header;
 
     for (let week = 0; week < monthArrayObject.length;week++){
-        calendarTableContents += formatTableLine(monthArrayObject[week]);
+        calendarTableContents += formatTableLine(monthArrayObject[week],false,"calendarItem");
     }
 
     calendarTable.innerHTML = calendarTableContents;
@@ -71,7 +71,10 @@ function monthArray(firstDay,dayCount){
     return monthArray;
 }
 
-function formatTableLine(array,isHeader){
+function formatTableLine(array,isHeader, insertClass){
+    if(insertClass == undefined){
+        insertClass = "";
+    }
     let tag = "<td";
     let tagClose = "</td>";
 
@@ -84,7 +87,7 @@ function formatTableLine(array,isHeader){
 
     for(let item = 0;item < array.length;item++){
         //line += tag + f"id = ''" +array[item] + tagClose;
-        line += `${tag} id='${array[item]}'> ${array[item]} ${tagClose}`
+        line += `${tag} id='${array[item]}' class='${insertClass}'> ${array[item]} ${tagClose}`
     }
 
     line += "</tr>"
@@ -123,7 +126,6 @@ document.getElementById("pastMonth").addEventListener("click", function(e){updat
 document.getElementById("currentMonth").addEventListener("click", function(e){updateMonthYear(0)});
 document.getElementById("nextMonth").addEventListener("click", function(e){updateMonthYear(1)});
 
-
 let test_data = [];
 
 for(let i = 1; i < 32; i++){
@@ -138,8 +140,34 @@ for(let i = 1; i < 32; i++){
         "eight_period":"Scott Thomas",
         "ninth_period":"None",
         "tenth_period":"Scott Thomas",
-        "after_school":{"teacher":"Scott Thomas","time":i%3}
+        "after_school":"Scott Thomas " + `${i%3}`
     }
 
     test_data.push(test_day_JSON);
+}
+
+
+
+let highlightedDay = "1";
+
+function daySelect(event){
+    document.getElementById(highlightedDay).style.backgroundColor = "white";
+    highlightedDay = (event.target.id);
+    console.log(highlightedDay);
+    document.getElementById(highlightedDay).style.backgroundColor = "yellow";
+    document.getElementById("schedule").innerHTML = dayScheduleFormatter(test_data[parseInt(highlightedDay)]);
+}
+
+let calendarDays = document.getElementsByClassName("calendarItem");
+
+function dayScheduleFormatter(day_JSON) {
+    tableData = formatTableLine(["Period", "Teacher"], true);
+    for(const key in day_JSON){
+        tableData += formatTableLine([key,day_JSON[key]],false);
+    }
+    return tableData;
+}
+
+for(let day = 0; day < calendarDays.length;day++){
+    calendarDays[day].addEventListener("click", daySelect);
 }
