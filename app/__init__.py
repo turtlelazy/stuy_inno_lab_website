@@ -8,14 +8,7 @@ from flask_mail import Mail, Message
 import json
 import time
 import sendemail
-mail= Mail(app)
-app.config['MAIL_SERVER']='smtp.gmail.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'testing789project@gmail.com'
-app.config['MAIL_PASSWORD'] = 'jlkcrvpjomtsdkbc'
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-mail = Mail(app)
+
 
 dict =	{
   "3D-printer": 0,
