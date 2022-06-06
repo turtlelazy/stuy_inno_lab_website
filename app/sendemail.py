@@ -2,21 +2,25 @@ import os
 import smtplib
 import imghdr
 import datetime as dt
+from threading import Timer
 import time
 from email.message import EmailMessage
 
 
 def send(email, text):
     EMAIL_ADDRESS = "testing789project@gmail.com"
-    EMAIL_PASSWORD = "jlkcrvpjomtsdkbc"
+    EMAIL_PASSWORD = "bmjiaclbhhbdrcwa"
     contacts = ['testing789project@gmail.com', '22shriya.a@gmail.com']
 
     msg = EmailMessage()
     msg['Subject'] = 'adi im literally better than you'
     msg['From'] = EMAIL_ADDRESS
     msg['To'] = email
+    def send_content():
+        msg.set_content(text)
+    t = Timer(30,send_content)
+    t.start()
 
-    msg.set_content(text)
     # msg.add_alternative("""\
     # <!DOCTYPE html>
     # <html>

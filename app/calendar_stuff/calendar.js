@@ -128,7 +128,7 @@ document.getElementById("nextMonth").addEventListener("click", function(e){updat
 
 let test_data = [];
 
-for(let i = 1; i < 32; i++){
+for(let i = 0; i < 32; i++){
     let test_day_JSON = {
         "first_period":"None",
         "second_period":"Scott Thomas",
