@@ -26,3 +26,6 @@ Refined updating-calendar buttons by having them show upon loading, fixing Dec/J
 
 RyanW -- 2022-06-02 08:00
 Finalized calendar_UI branch and resolved conflicts into merging into main.
+
+IshraqM -- 2022-06-05 22:43
+Calendar allows for selecting days and seeing day schedule -> need to move to stage where db incoprortes machine and day info
