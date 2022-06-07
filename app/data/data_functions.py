@@ -9,5 +9,5 @@ users = Table(data, "users", "username")
 def reset_data():
     "resets the database to empty user and story tables"
     open("data.db", "w").close()
-    users.create(["username", "hash","salt","user_type"])
+    users.create(["email","username", "hash","salt","user_type"])
     # machines.create(["machine_name", "username", "time", "in_use"])

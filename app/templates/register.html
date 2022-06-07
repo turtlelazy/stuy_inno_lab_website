@@ -19,11 +19,13 @@
         </div>
         <div class="cell">
             <form method="POST">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" required>
                 <label for="name">Username:</label>
                 <input type="text" name="name" id="name" required>
-                <label for="name">Password:</label>
+                <label for="password">Password:</label>
                 <input type="password" name="password" id="password" required>
-                <label for="name">Enter Password Again:</label>
+                <label for="password2">Enter Password Again:</label>
                 <input type="password" name="password2" id="password2" required>
                 {% if error != "" %}
                 <p style="color:red">{{ error }}</p>

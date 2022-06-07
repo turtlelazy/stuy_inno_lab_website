@@ -8,20 +8,22 @@ def get_usernames():
 def user_exists(username):
     return username in get_usernames()
 
-def create_user(username,password,user_type):
+def create_user(email, username,password,user_type):
     if(user_exists(username)):
         return False
     
     salt = b.gensalt()
     hashed = b.hashpw(password.encode('utf-8'), salt)
 
-    users.add_values([username,hashed,salt,user_type])
+    users.add_values([email, username,hashed,salt,user_type])
     return True
 
 def get_salt(username):
     return users.get_value(username,"salt")
 def get_hash(username):
     return users.get_value(username,"hash")
+def get_email(username):
+    return users.get_value(username, "email")
 
 def verify_user(username,password):
     if(not user_exists(username)):

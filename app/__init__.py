@@ -90,6 +90,7 @@ def register():
     if request.method == "POST":
 
         # POST request: handle the form response and redirect
+        email = request.form.get("email", default="")
         username = request.form.get("name", default="")
         password = request.form.get("password", default="")
         password2 = request.form.get("password2", default="")
@@ -111,7 +112,7 @@ def register():
             print("bad")
             return render_template("register.html", error=error)
         else:
-            create_user(username, password, "not admin")
+            create_user(email, username, password, "not admin")
             print(username)
             print(password)
             return redirect(url_for("login"))
