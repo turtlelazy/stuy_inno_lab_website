@@ -2,6 +2,10 @@
     cursor:pointer;
 }
 
+.calendarDiv {
+  margin: auto;
+}
+
 header {
   color: #000000;
 }
