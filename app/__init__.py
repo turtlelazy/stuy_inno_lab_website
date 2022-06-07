@@ -41,9 +41,8 @@ def index():
         user = session['username']
         # return render_template("profile.html", user=user)
         return render_template("machinelist.html")
-
     else:
-        return render_template("machinelist.html")
+        return render_template("homepage.html")
 
 
 
@@ -81,8 +80,8 @@ def confirmation():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    if "username" in session:
-        return redirect(url_for("index"))
+    # if "username" in session:
+    #     return redirect(url_for("machineli"))
 
     # GET request: display the form
     if request.method == "GET":
@@ -102,12 +101,14 @@ def register():
             error = "Error: Passwords Must Match"
         
         if error:
+            print("bad")
             return render_template("register.html", error=error)
         
         if user_exists(username):
             error = "Username already in use"
     
         if error:
+            print("bad")
             return render_template("register.html", error=error)
         else:
             create_user(username, password, "not admin")
