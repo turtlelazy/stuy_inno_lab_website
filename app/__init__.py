@@ -107,14 +107,14 @@ def register():
         if password != password2:
             print("bad")
             error = "Error: Passwords Must Match"
-        
+
         if error:
             print("bad")
             return render_template("register.html", error=error)
-        
+
         if user_exists(username):
             error = "Username already in use"
-    
+
         if error:
             print("bad")
             return render_template("register.html", error=error)
@@ -131,7 +131,7 @@ def login():
 
     if request.method == "GET":
         return render_template("login.html")
-    
+
     if request.method == "POST":
         username = request.form.get("name", default = "")
         password = request.form.get("password", default="")
@@ -139,7 +139,7 @@ def login():
         if not user_exists(username):
             error = "Username does not exist"
             return render_template('login.html', error=error)
-        
+
         else:
             if not verify_user(username, password):
                 error = "Incorrect Password"
@@ -155,7 +155,7 @@ def login():
 
 # @app.route("/waitlistConfirmation", methods=["GET","POST"])
 # def waitlistConfirmation():
-    
+
 @app.route("/waitlistConfirmation", methods=["GET","POST"])
 def waitlistConfirmation():
     if (waitlist[ request.args["machineName"]] == "no"):
@@ -180,8 +180,9 @@ def signOutList():
 @app.route("/signOut", methods=["GET","POST"])
 def signOut():
     dict[request.args["machineName"]] = 0
-    sendemail.send(waitlist[request.args["machineName"]], "You may use the machine now")
-    waitlist[request.args["machineName"]] = "no"
+    if(waitlist[request.args["machineName"]] != "no"):
+        sendemail.send(waitlist[request.args["machineName"]], "You may use the machine now")
+        waitlist[request.args["machineName"]] = "no"
     return("sign out successful")
 
 if __name__ == "__main__": #false if this file imported as module
