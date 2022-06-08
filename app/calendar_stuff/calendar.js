@@ -44,6 +44,12 @@ function updateCalendar(){
 
     let calendarHeader = document.getElementById("month_year");
     calendarHeader.innerHTML = getMonthName(month) + " " + year;
+    
+    let calendarDays = document.getElementsByClassName("calendarItem");
+
+    for (let day = 0; day < calendarDays.length; day++) {
+        calendarDays[day].addEventListener("click", daySelect);
+    }
 
 }
 
@@ -158,7 +164,6 @@ function daySelect(event){
     document.getElementById("schedule").innerHTML = dayScheduleFormatter(test_data[parseInt(highlightedDay)]);
 }
 
-let calendarDays = document.getElementsByClassName("calendarItem");
 
 function dayScheduleFormatter(day_JSON) {
     tableData = formatTableLine(["Period", "Teacher"], true);
@@ -168,6 +173,4 @@ function dayScheduleFormatter(day_JSON) {
     return tableData;
 }
 
-for(let day = 0; day < calendarDays.length;day++){
-    calendarDays[day].addEventListener("click", daySelect);
-}
+
