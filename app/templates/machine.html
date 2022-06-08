@@ -1,12 +1,10 @@
 <html>
 <body>
   <form action = "/confirmation">
-    Hi,
-    <br>
-    <br>
-    <input type="text" name="user">
-    <br>
+    Hi {{user}}, how long are you using the <span id = "mt"> machine </span> for?
 
+    <br>
+    <br>
     <div id = "container">
         <input type="radio" id="3D-printer" name="machineName" value="3D-printer" onchange="getValue(this)" {{printer}}>
         <label for="3D-printer">3D-printer</label><br>
@@ -17,9 +15,7 @@
         <br>
     </div>
     <br>
-    How long are you using the <span id = "mt"> machine </span> for?
-    <br>
-    <br>
+
     <input type="text" name="time">
     <br>
     <br>
