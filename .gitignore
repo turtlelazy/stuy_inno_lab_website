@@ -136,3 +136,6 @@ dmypy.json
 app/test.py
 
 .vscode
+
+# venv - virtual environments
+venv/

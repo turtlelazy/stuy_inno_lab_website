@@ -11,7 +11,10 @@ import sendemail
 from data.users import user_exists, verify_user, create_user, get_username
 from os import urandom
 from data.data_functions import *
-reset_data()
+from data.schedule import compile_calendar
+
+#reset_data()
+
 app = Flask(__name__)
 debug = True
 app.secret_key = urandom(32)
@@ -44,6 +47,10 @@ def index():
     else:
         return render_template("homepage.html")
 
+@app.route("/calendar")
+def calendar():
+    print(compile_calendar())
+    return render_template("calendar.html", calendarSchedule = compile_calendar())
 
 
 @app.route("/machine", methods=["GET","POST"])

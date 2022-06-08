@@ -5,6 +5,14 @@
         <link rel="stylesheet" href="../static/css/style.css">
     </head>
 
+    <div class="topnav">
+      <a href="#home">Home</a>
+      <a class="active" href="#calendar">Calendar</a>
+      <a href="#admin_portal">Admin Portal</a>
+      <a href="#machines">Machines</a>
+      <a href="#logout">Logout</a>
+    </div>
+
     <body>
         <header>
             <h1 id = "month_year"></h1>
@@ -14,10 +22,6 @@
         <button id="currentMonth">currentMonth</button>
         <button id="nextMonth">nextMonth</button>
 
-
-
-          <!-- month: <input type="number" name="month" id="input_month"><br> -->
-          <!-- year: <input type="number" name="year" id="input_year"><br> -->
         <div id="calendarDiv">
             <h2>Calendar</h2>
             <table id = "calendar" style="border-spacing: 15px;"></table>
@@ -29,12 +33,12 @@
 
         <div id="infoDiv">
             <h2>Monthly Announcements & Reminders</h2>
-            <h2>Day Information</h2>
+            <!-- <h2>Day Information</h2> -->
             <table id="schedule"></table>
         </div>
 
 
-
     </body>
-    <script src = "calendar.js"></script>
+    <script>let calendarSchedule = JSON.parse('{{ calendarSchedule | tojson | safe}}');</script>
+    <script src = "../static/js/calendar.js"></script>
 </html>
