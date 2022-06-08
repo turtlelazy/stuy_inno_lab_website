@@ -55,6 +55,8 @@ def calendar():
 
 @app.route("/machine", methods=["GET","POST"])
 def machine():
+    print(session["username"])
+    # print(session["email"])
     if (request.args['machine'] == "3D-printer"):
         return render_template("machine.html", printer = "checked")
     if (request.args['machine'] == "laser-cutter"):
