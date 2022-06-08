@@ -8,7 +8,7 @@ import json
 import time
 import sendemail
 
-from data.users import user_exists, verify_user, create_user
+from data.users import user_exists, verify_user, create_user, get_username
 from os import urandom
 from data.data_functions import *
 reset_data()
@@ -40,7 +40,7 @@ def index():
     if session.get('username') is not None:
         user = session['username']
         # return render_template("profile.html", user=user)
-        return render_template("machinelist.html")
+        return render_template("machinelist.html", user=user)
     else:
         return render_template("homepage.html")
 
@@ -105,8 +105,8 @@ def register():
             print("bad")
             return render_template("register.html", error=error)
         
-        if user_exists(username):
-            error = "Username already in use"
+        if user_exists(email):
+            error = "Email already in use"
     
         if error:
             print("bad")
@@ -126,18 +126,21 @@ def login():
         return render_template("login.html")
     
     if request.method == "POST":
-        username = request.form.get("name", default = "")
+        email = request.form.get("email", default = "")
         password = request.form.get("password", default="")
+        # username = get_username(email)
 
-        if not user_exists(username):
-            error = "Username does not exist"
+        if not user_exists(email):
+            error = "Email does not exist"
             return render_template('login.html', error=error)
+
         
         else:
-            if not verify_user(username, password):
+            if not verify_user(email, password):
                 error = "Incorrect Password"
                 return render_template('login.html', error=error)
             else:
+                username = get_username(email)
                 session['username'] = username
                 return redirect(url_for("index"))
 
