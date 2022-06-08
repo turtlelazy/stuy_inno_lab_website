@@ -58,11 +58,11 @@ def calendar():
 def machine():
     print(session["username"])
     # print(session["email"])
-    if (request.args['machine'] == "3D-printer"):
+    if (request.args['machineName'] == "3D-printer"):
         return render_template("machine.html", printer = "checked", user = session['username'])
-    if (request.args['machine'] == "laser-cutter"):
+    if (request.args['machineName'] == "laser-cutter"):
         return render_template("machine.html", laserCutter = "checked", user = session['username'])
-    if (request.args['machine'] == "another machine"):
+    if (request.args['machineName'] == "another machine"):
         return render_template("machine.html", anotherMachine = "checked", user = session['username'])
 
 @app.route("/confirmation", methods=["GET","POST"])
@@ -187,14 +187,24 @@ def waitlistConfirmation():
 
 @app.route("/signOutList", methods=["GET","POST"])
 def signOutList():
+    if (request.args['machineName'] == "3D-printer"):
+        return render_template("signOut.html", printer = "checked")
+    if (request.args['machineName'] == "laser-cutter"):
+        return render_template("signOut.html", laserCutter = "checked")
+    if (request.args['machineName'] == "another machine"):
+        return render_template("signOut.html", anotherMachine = "checked")
+    
     return render_template("signOut.html")
 @app.route("/signOut", methods=["GET","POST"])
 def signOut():
-    machineUsage[request.args["machineName"]] = []
-    if(waitlist[request.args["machineName"]] != "no"):
-        sendemail.send(waitlist[request.args["machineName"]], "You may use the machine now")
-        waitlist[request.args["machineName"]] = "no"
-    return("sign out successful")
+    try:
+        machineUsage[request.args["machineName"]] = []
+        if(waitlist[request.args["machineName"]] != "no"):
+            sendemail.send(waitlist[request.args["machineName"]], "You may use the machine now")
+            waitlist[request.args["machineName"]] = "no"
+        return("sign out successful")
+    except:
+        return("fail")
 
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
