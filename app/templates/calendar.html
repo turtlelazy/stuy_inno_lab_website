@@ -36,6 +36,6 @@
 
 
     </body>
-    <script src = "calendar.js"></script>
-
+    <script>let calendarSchedule = JSON.parse('{{ calendarSchedule | tojson | safe}}');</script>
+    <script src = "../static/js/calendar.js"></script>
 </html>

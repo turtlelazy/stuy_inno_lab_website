@@ -23,7 +23,20 @@ def admin_calendar_creation(year,month,default_Schedule_JSON):
 
     create_calendar(year,month,calendar_JSON)
 
+def compile_calendar():
+    calendar_JSON = []
 
+    for month in calendar.get_all_values():
+        calendar_JSON.append({
+            "schedule": json.loads(month[0]),
+            "year":month[1],
+            "month":month[2]
+        })
+
+    return calendar_JSON
+
+
+#helper functions
 def daysInMonth(year, month):
     monthObject = datetime(year, month, 1)
     return calendarLib.monthrange(monthObject.year, monthObject.month)[1]

@@ -89,7 +89,11 @@ class Table:
         self.c.execute(
             f"SELECT {value} FROM {self.table_name} WHERE {search_type} = '{search_query}'")
         return self.c.fetchone()
-    
+
+    def get_all_values(self):
+        self.c.execute(f"SELECT * FROM {self.table_name}")
+        return self.c.fetchall()
+
     def get_main_value_from_conditions(self,parameters,conditions):
         if not len(parameters) == len(conditions):
             return "error"
