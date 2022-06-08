@@ -22,6 +22,10 @@
     <input type="submit" name="submit" value= "submit">
 
   </form>
+  <br>
+  {% if error != "" %}
+  <p style="color:red">{{ error }}</p>
+  {% endif %}
 
   <script>
   var input = document.getElementsByTagName('radioButtons');

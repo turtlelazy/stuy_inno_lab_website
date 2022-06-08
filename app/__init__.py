@@ -67,28 +67,31 @@ def machine():
 
 @app.route("/confirmation", methods=["GET","POST"])
 def confirmation():
-    print(request.args["machineName"]== "3D-printer")
+    print(session["email"])
+
     # print("HELLO" + str(machineUsage[request.args["machineName"]][0]))
-    int(request.args["time"])
-    if (len(machineUsage[request.args["machineName"]]) == 0):
-        machineUsage[request.args["machineName"]].append(int(request.args["time"]))
-        machineUsage[request.args["machineName"]].append(email)
+    try:
+        int(request.args["time"])
+        if (len(machineUsage[request.args["machineName"]]) == 0):
+            machineUsage[request.args["machineName"]].append(int(request.args["time"]))
+            machineUsage[request.args["machineName"]].append(session['email'])
 
-    else:
-        return render_template("waitlist.html", machineName = request.args["machineName"])
-    print(machineUsage[request.args["machineName"]])
+        else:
+            if(machineUsage[request.args["machineName"]][1] == session["email"]):
+                return render_template("machine.html", machineName = request.args["machineName"], user = session["username"], error = "You have already signed on to use this machine")
+            else:
+                return render_template("waitlist.html", machineName = request.args["machineName"], user = session["username"])
 
 
-    # except:
-    #     if (request.args['machineName'] == "3D-printer"):
-    #         return render_template("machine.html", printer = "checked")
-    #     if (request.args['machineName'] == "laser-cutter"):
-    #         return render_template("machine.html", laserCutter = "checked")
-    #     if (request.args['machineName'] == "another machine"):
-    #         return render_template("machine.html", anotherMachine = "checked")
-    #     return render_template("machine.html")
-    # return render_template("confirmation.html")
-    # print(type(request.args["time"]))
+    except:
+        if (request.args['machineName'] == "3D-printer"):
+            return render_template("machine.html", printer = "checked", user = session["username"], error = "The input is not a valid integer")
+        if (request.args['machineName'] == "laser-cutter"):
+            return render_template("machine.html", laserCutter = "checked", user = session["username"], error = "The input is not a valid integer")
+        if (request.args['machineName'] == "another machine"):
+            return render_template("machine.html", anotherMachine = "checked", user = session["username"], error = "The input is not a valid integer")
+        return render_template("machine.html")
+    return render_template("confirmation.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
