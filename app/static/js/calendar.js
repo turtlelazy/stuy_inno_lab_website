@@ -132,28 +132,6 @@ document.getElementById("pastMonth").addEventListener("click", function(e){updat
 document.getElementById("currentMonth").addEventListener("click", function(e){updateMonthYear(0)});
 document.getElementById("nextMonth").addEventListener("click", function(e){updateMonthYear(1)});
 
-let test_data = [];
-
-for(let i = 0; i < 32; i++){
-    let test_day_JSON = {
-        "first_period":"None",
-        "second_period":"Scott Thomas",
-        "third_period":"Someone Else",
-        "fourth_period":"None",
-        "fifth_period":"None",
-        "sixth_period":"Joseph Blay",
-        "seventh_period":"Joseph Blay",
-        "eight_period":"Scott Thomas",
-        "ninth_period":"None",
-        "tenth_period":"Scott Thomas",
-        "after_school":"Scott Thomas " + `${i%3}`
-    }
-
-    test_data.push(test_day_JSON);
-}
-
-
-
 let highlightedDay = "1";
 
 function daySelect(event){
@@ -161,7 +139,10 @@ function daySelect(event){
     highlightedDay = (event.target.id);
     console.log(highlightedDay);
     document.getElementById(highlightedDay).style.backgroundColor = "yellow";
-    document.getElementById("schedule").innerHTML = dayScheduleFormatter(test_data[parseInt(highlightedDay)]);
+    monthData = monthSchedule(year,month)["schedule"];
+    console.log(monthData);
+    console.log(monthData[parseInt(highlightedDay)]);
+    document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
 }
 
 
@@ -170,8 +151,18 @@ function dayScheduleFormatter(day_JSON) {
     for(const key in day_JSON){
         tableData += formatTableLine([key,day_JSON[key]],false);
     }
+    console.log(day_JSON)
     return tableData;
 }
 
+function monthSchedule(in_year,in_month){
+    for (const x of calendarSchedule){
+        if (x.month == in_month.toString() && x.year == in_year.toString()){
+            //console.log(x)
+            return x;
+        }
+    }
 
-console.log(x)
+    return null;
+}
+
