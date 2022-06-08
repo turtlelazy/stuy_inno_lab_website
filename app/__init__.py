@@ -43,7 +43,8 @@ def index():
     if session.get('username') is not None:
         user = session['username']
         # return render_template("profile.html", user=user)
-        return render_template("machinelist.html", user=user)
+        e = session['email']
+        return render_template("machinelist.html", user=user, email = e)
     else:
         return render_template("homepage.html")
 
@@ -149,6 +150,7 @@ def login():
             else:
                 username = get_username(email)
                 session['username'] = username
+                session['email'] = email
                 return redirect(url_for("index"))
 
 
