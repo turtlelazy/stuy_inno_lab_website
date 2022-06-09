@@ -58,6 +58,15 @@ def index():
     else:
         return render_template("homepage.html")
 
+
+@app.route("/edit_request", methods=["GET","POST"])
+def edit():
+    payload = request.get_json()
+    print(payload)
+    print(session.get('username'))
+
+    return ""
+
 @app.route("/calendar")
 def calendar():
     print(compile_calendar())

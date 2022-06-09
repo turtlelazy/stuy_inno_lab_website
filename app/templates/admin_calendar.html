@@ -28,7 +28,16 @@
 
         <div id="calendarEditDiv">
             <h2>Edit Calendar</h2>
+            <label for="editOption">Choose Day or Month to edit:</label>
+            <select name="editOption" id="editOption">
+                <option value="currentMonth">Current Month</option>
+                <option value="currentDay">Selected Day</option>
+            </select>
+
             <table id="defaultScheduleEdit"></table>
+            
+            <br>
+            <button id="saveEdit">Save Changes</button>
             
         </div>
 

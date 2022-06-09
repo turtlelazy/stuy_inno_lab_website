@@ -197,3 +197,35 @@ function compileEditInfo(tableID,timePeriods){
 
     return scheduleDictionary;
 }
+
+function editSingleDay(day,compiledInfo){
+    for(let i = 0; i < calendarSchedule.length; i++){
+        if (calendarSchedule[i]["month"] == month && calendarSchedule[i]["year"] == year){
+            calendarSchedule[i]["schedule"][day-1] = compiledInfo;
+        }
+    }
+}
+
+function submitRequest(changeOption){
+    if(changeOption == "currentMonth"){
+        compiledInfo = (tableID,defaultTimePeriods);
+        requestObject = {};
+        requestObject["edit"] = changeOption;
+        requestObject["year"] = year;
+        requestObject["month"] = month;
+        requestObject["info"] = compiledInfo;
+        
+        sendPayload(requestObject);
+    }
+}
+
+function sendPayload(json) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", "/edit_request", true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(
+        json
+    ));
+}
+
+defaultDailyTableSet();
