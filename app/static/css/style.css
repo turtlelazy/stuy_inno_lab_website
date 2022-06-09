@@ -1,20 +1,19 @@
 :root {
-  /* colors */
-  /* --dark-gray: #474747; */
-  --my-orange: #dc965aff;
-  --my-white: #e7ecefff;
-  --my-black: #313638ff;
+  /* original colors - REST IN COMMENTS */
+  /* --my-orange: #dc965aff; */
+  /* --my-white: #e7ecefff; */
+  /* --my-black: #313638ff; */
   /* --my-blue: #468c98ff; */
-  --my-blue: #00B4D8;
+  /* --my-copper: #9b6a6cff; */
+
+  --my-white: #e7ecefff;
   --my-light-blue: #90E0EF;
-  --my-dark-blue:  #03045E;
   --my-pale-blue: #ADD8E6;
+  --my-blue: #00B4D8;
+  --my-dark-blue:  #03045E;
 
-  --my-copper: #9b6a6cff;
-
-  /* other examples */
+  /* other variables */
   --my-font-family: "Georgia", serif;
-  /* --my-margin: 10px; */
 }
 
 html {
@@ -91,7 +90,7 @@ header {
 
 table {
   border-collapse: collapse;
-  border: 2px solid rgb(200, 200, 200);
+  border: 2px solid grey;
   letter-spacing: 1px;
   font-family: var(--my-font-family);
   font-size: 1rem;
@@ -101,7 +100,7 @@ table {
 
 td,
 th {
-  border: 1px solid rgb(190, 190, 190);
+  border: 1px solid grey;
   padding: 10px;
 }
 
@@ -132,6 +131,7 @@ td:first-child,
 td:last-child 
 {
   background-color: var(--my-dark-blue);
+  color:var(--my-light-blue);
 }
 
 li {
