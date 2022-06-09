@@ -1,5 +1,83 @@
-.calendarItem {
+:root {
+  /* original colors - REST IN COMMENTS */
+  /* --my-orange: #dc965aff; */
+  /* --my-white: #e7ecefff; */
+  /* --my-black: #313638ff; */
+  /* --my-blue: #468c98ff; */
+  /* --my-copper: #9b6a6cff; */
+
+  --my-white: #e7ecefff;
+  --my-light-blue: #90E0EF;
+  --my-pale-blue: #ADD8E6;
+  --my-blue: #00B4D8;
+  --my-dark-blue:  #03045E;
+
+  /* other variables */
+  --my-font-family: "Georgia", serif;
+}
+
+html {
+  display: table;
+  margin: auto;
+  width: 60%;
+}
+
+body {
+  display: table-cell;
+  vertical-align: middle;
+  background:var(--my-pale-blue);
+  font-family: var(--my-font-family);
+}
+
+button {
     cursor:pointer;
+    font-family: var(--my-font-family);
+    /* font-size:20px; */
+    font-size: 1.5rem;
+
+    /* self-explanatory */
+    width:  33%;
+    height: 50px;
+    /* how "round" the edges of buttons are */
+    border-radius:30px; 
+    /* how much space around the buttons */
+    margin:auto;
+    transition-duration:.2s;
+}
+
+/* Add a black background color to the top navigation */
+.topnav {
+  background-color: var(--my-dark-blue);
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: var(--my-white);
+  text-align: center;
+  padding: 2.5% 0px;
+  text-decoration: none;
+  font-size: 1rem;
+  width: 20%;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: var(--my-white);
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: var(--my-light-blue);
+  color: var(--my-white);
+}
+/* TEST */
+/* TEST */
+
+.calendarItem {
+  cursor: pointer;
 }
 
 .calendarDiv {
@@ -10,38 +88,63 @@ header {
   color: #000000;
 }
 
+table {
+  border-collapse: collapse;
+  border: 2px solid grey;
+  letter-spacing: 1px;
+  font-family: var(--my-font-family);
+  font-size: 1rem;
+  table-layout: fixed;
+  width: 100%;
+}
+
 td,
 th {
-    border: 1px solid rgb(190, 190, 190);
-    padding: 10px;
+  border: 1px solid grey;
+  padding: 10px;
 }
 
 td {
-    text-align: center;
+  text-align: center;
+  height: 20px;
+  width: 100%;
 }
 
-tr:nth-child(even) {
-    background-color: #eee;
+/* checkered pattern */
+/* tr:nth-child(even) td:nth-child(odd), 
+tr:nth-child(odd) td:nth-child(even)
+{
+    background-color: var(--my-white);
+} */
+
+
+/* red weekend */
+td:nth-child(even) {
+  background-color: var(--my-white);
+}
+td:nth-child(odd) {
+  background-color: var(--my-light-blue);
 }
 
-th[scope="col"] {
-    background-color: #696969;
-    color: #fff;
+/* alternate pattern */
+td:first-child,
+td:last-child 
+{
+  background-color: var(--my-dark-blue);
+  color:var(--my-light-blue);
 }
 
-th[scope="row"] {
-    background-color: #d7d9f2;
+li {
+  font-family: var(--my-font-family);
+  font-size: large;
 }
-
 caption {
-    padding: 10px;
-    caption-side: bottom;
+  padding: 10px;
+  caption-side: bottom;
 }
 
-table {
-    border-collapse: collapse;
-    border: 2px solid rgb(200, 200, 200);
-    letter-spacing: 1px;
-    font-family: sans-serif;
-    font-size: .8rem;
+h1, 
+h2,
+h3 {
+  text-align: center;
 }

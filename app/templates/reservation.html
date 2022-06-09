@@ -1,59 +1,57 @@
 <html>
 <body>
 
-    Who is reserving the <span id = "mt"> machine </span>
-    <br>
-    <br>
-    <input type="text" name="user">
-    <br>
-
-    <div id = "container">
-        <input type="radio" id="3d printer" name="machineName" value="3D printer" onchange="getValue(this)" {{printer}}>
-        <label for="3d printer">3D PRINTER</label><br>
-        <input type="radio" id="laser cutter" name="machineName" value="Laser cutter" onchange="getValue(this)" {{laserCutter}}>
-        <label for="laser cutter">LASER CUTTER</label><br>
-        <input type="radio" id="another machine" name="machineName" value="another machine" onchange="getValue(this)" {{anotherMachine}}>
-        <label for="another machine">ANOTHER MACHINE</label>
-        <br>
-    </div>
-
-
-    {% if in_use == True %}
-        <br>
-            <span id = "mt"> machine </span> is currently in use 
-        <br>
-    {% else %}
-        <br>
-            What period do you want to reserve <span id = "mt"> machine </span> for?
-        <br>
-        <br>
-        <input type="text" name="time">
-        <br>
-        <br>
-        <input type="submit" name="submit" value= "submit">
-
-    {% endif %}
-
-
-
-  <script>
-  var input = document.getElementsByTagName('radioButtons');
-  var output = document.getElementById("mt");
-
-  if (document.getElementById('3d printer').checked){
-    output.innerHTML = "3D PRINTER";
-  }
-  if (document.getElementById('laser cutter').checked){
-    output.innerHTML = "LASER CUTTER";
-  }
-  if (document.getElementById('another machine').checked){
-    output.innerHTML = "ANOTHER MACHINE";
-  }
-
-  function getValue(radio) {
-        output.innerHTML = radio.value;
-    }
-  </script>
+  <table>
+    <tr>
+      <th>Machine</th>
+      <th>User</th>
+      <th>Time</th>
+      <th>Use</th>
+    </tr>
+    <tr>
+      <td>CNC</td>
+      <td>{{cnc[0]}}</td>
+      <td>{{cnc[1]}}</td>
+      <td>{{cnc[2]}}</td>
+      
+    </tr>
+    <tr>
+      <td>3dp 1</td>
+      <td>{{p1[0]}}</td>
+      <td>{{p1[1]}}</td>
+      <td>{{p1[2]}}</td>
+    </tr>
+    <tr>
+      <td>3dp 2</td>
+      <td>{{p2[0]}}</td>
+      <td>{{p2[1]}}</td>
+      <td>{{p2[2]}}</td>
+    </tr>
+    <tr>
+      <td>3dp 3</td>
+      <td>{{p3[0]}}</td>
+      <td>{{p3[1]}}</td>
+      <td>{{p3[2]}}</td>
+    </tr>
+    <!-- <tr>
+      <td>3dp 4</td>
+      <td>Francisco Chang</td>
+      <td>Mexico</td>
+      <td>hold</td>
+    </tr> -->
+    <tr>
+      <td>3dp stratysys</td>
+      <td>{{strat[0]}}</td>
+      <td>{{strat[1]}}</td>
+      <td>{{strat[2]}}</td>
+    </tr>
+    <tr>
+      <td>Laser</td>
+      <td>{{laser[0]}}</td>
+      <td>{{laser[1]}}</td>
+      <td>{{laser[2]}}</td>
+    </tr>
+  </table>
 
 </body>
 </html>

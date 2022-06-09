@@ -36,13 +36,20 @@ Refined updating-calendar buttons by having them show upon loading, fixing Dec/J
 RyanW -- 2022-06-02 08:00
 Finalized calendar_UI branch and resolved conflicts into merging into main.
 
-<<<<<<< HEAD
 ShriyaA - 2022-06-02 08:00
 Figured out sending out email through python
 
 IshraqM -- 2022-06-05 22:43
-Calendar allows for selecting days and seeing day schedule -> need to move to stage where db incoprortes machine and day info
-=======
-RyanW -- 2022-06-02 10:30
-Created skeleton of calendar CSS on new branch calendar_CSS. 
->>>>>>> calendar_CSS
+Calendar allows for selecting days and seeing day schedule -> need to move to stage where db incorporates machine and day info
+
+RyanW -- 2022-06-02 22:30
+Created skeleton of calendar CSS on new branch calendar_CSS.
+
+RyanW -- 2022-06-08 08:00
+Merged calendar_CSS back, finished the navbar and centering calendar.html page.
+
+RyanW -- 2022-06-09 08:30
+Almost complete CSS for calendar.html
+
+RyanW -- 2022-06-09 10:30
+Completed CSS for calendar.html (navbar, buttons, table, ordered list, etc.)
