@@ -16,7 +16,7 @@ from data.data_functions import *
 from data.schedule import compile_calendar
 from datetime import datetime, timedelta, time
 
-# reset_data()
+reset_data()
 
 app = Flask(__name__)
 debug = True
