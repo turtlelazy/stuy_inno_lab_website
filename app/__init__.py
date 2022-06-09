@@ -15,7 +15,7 @@ from data.data_functions import *
 from data.schedule import compile_calendar
 from datetime import datetime, timedelta, time
 
-reset_data()
+# reset_data()
 
 app = Flask(__name__)
 debug = True
@@ -82,6 +82,7 @@ def machine():
         return render_template("machine.html", laserCutter = "checked", user = session['username'])
     if (request.args['machineName'] == "CNC"):
         return render_template("machine.html", CNC = "checked", user = session['username'])
+    
 
 @app.route("/confirmation", methods=["GET","POST"])
 def confirmation():
@@ -128,6 +129,10 @@ def confirmation():
     #     if (request.args['machineName'] == "CNC"):
     #         return render_template("machine.html", CNC = "checked", user = session["username"], error = "The input is not a valid integer")
     #     return render_template("machine.html")
+    print(session["username"])
+    print(request.args['machineName'])
+    print(request.args['time'])
+    new_reservations(session["username"], request.args['machineName'], request.args['time'])
     return render_template("confirmation.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -245,7 +250,6 @@ def signOutList():
         return render_template("signOut.html", laserCutter = "checked")
     if (request.args['machineName'] == "CNC"):
         return render_template("signOut.html", CNC = "checked")
-
     return render_template("signOut.html")
 @app.route("/signOut", methods=["GET","POST"])
 def signOut():
@@ -260,6 +264,10 @@ def signOut():
         if(waitlist[request.args["machineName"]] != "no"):
             sendemail.send(waitlist[request.args["machineName"]], "You may use the " + request.args["machineName"] + " now")
             waitlist[request.args["machineName"]] = "no"
+        print("ending")
+        print(session["username"])
+        print(request.args['machineName'])
+        end_reservations(request.args['machineName'])
         return("sign out successful")
     except:
         return("ERROR")
@@ -267,12 +275,13 @@ def signOut():
 
 @app.route("/reservation", methods=["GET","POST"])
 def reservation():
-    laser = machine_column("laser")
-    p1 = machine_column("3dp1")
-    p2 = machine_column("3dp2")
-    p3 = machine_column("3dp3")
-    strat = machine_column("stratasys")
-    cnc = machine_column("cnc")
+    # end_reservations("3D-printer2")
+    laser = machine_column("laser-cutter")
+    p1 = machine_column("3D-printer1")
+    p2 = machine_column("3D-printer2")
+    p3 = machine_column("3D-printer3")
+    strat = machine_column("3D-printer_Stratasys")
+    cnc = machine_column("CNC")
     return render_template("reservation.html", laser = laser, p1 = p1, p2 = p2, p3 = p3, strat = strat, cnc = cnc)
 
 
