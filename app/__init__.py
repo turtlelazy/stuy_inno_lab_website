@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import os
 import smtplib
 import imghdr
+from dateutil import parser
 
 import json
 import time
@@ -137,8 +138,9 @@ def confirmation():
     #     return render_template("machine.html")
     print(session["username"])
     print(request.args['machineName'])
-    print(request.args['time'])
-    new_reservations(session["username"], request.args['machineName'], request.args['time'])
+    print(machineUsage[request.args["machineName"]][0])
+    # print(request.args['time'])
+    new_reservations(session["username"], request.args['machineName'], machineUsage[request.args["machineName"]][0])
     return render_template("confirmation.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -283,11 +285,35 @@ def signOut():
 def reservation():
     # end_reservations("3D-printer2")
     laser = machine_column("laser-cutter")
+    print(laser[1])
+    if laser[1] != '':
+        lt = str(round((datetime.fromisoformat(laser[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        laser[1] = lt
+
     p1 = machine_column("3D-printer1")
+    if p1[1] != '':
+        p1t = str(round((datetime.fromisoformat(p1[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        p1[1] = p1t
+    
     p2 = machine_column("3D-printer2")
+    if p2[1] != '':
+        p2t = str(round((datetime.fromisoformat(p2[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        p2[1] = p2t
+    
     p3 = machine_column("3D-printer3")
+    if p3[1] != '':
+        p3t = str(round((datetime.fromisoformat(p3[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        p3[1] = p3t
+
     strat = machine_column("3D-printer_Stratasys")
+    if strat[1] != '':
+        st = str(round((datetime.fromisoformat(strat[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        strat[1] = st
+    
     cnc = machine_column("CNC")
+    if cnc[1] != '':
+        cnct = str(round((datetime.fromisoformat(cnc[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        cnc[1] = cnct
     return render_template("reservation.html", laser = laser, p1 = p1, p2 = p2, p3 = p3, strat = strat, cnc = cnc)
 
 

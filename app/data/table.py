@@ -31,6 +31,12 @@ class Table:
         self.c.execute(
             f"INSERT INTO {self.table_name} VALUES {value_string}", values)
         self.db.commit()
+    
+    def drop(self):
+        self.c.execute(
+            f"DROP TABLE IF EXISTS {self.table_name}"
+        )
+        self.db.commit()
 
     def get_field(self, search_type):
         self.c.execute(
