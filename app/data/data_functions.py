@@ -13,11 +13,12 @@ def reset_data():
     open("data.db", "w").close()
     users.create(["email","username", "hash","salt","user_type"])
     calendar.create(["schedule","year", "month"])
+    reservations.drop()
     md = {
         "id": "INTEGER PRIMARY KEY AUTOINCREMENT",
         "machine_name": "TEXT",
         "username": "TEXT",
-        "time" : "INTEGER",
+        "time" : "TEXT",
         "in_use": "INTEGER"
     }
     reservations.create_not_text(md)

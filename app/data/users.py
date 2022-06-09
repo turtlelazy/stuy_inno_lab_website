@@ -2,8 +2,8 @@ from data.data_functions import users
 import bcrypt as b
 
 
-# def get_usernames():
-#     return users.get_main_values()
+def get_usernames():
+    return users.get_main_values()
 
 
 def get_emails():

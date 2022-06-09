@@ -3,6 +3,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 import os
 import smtplib
 import imghdr
+from dateutil import parser
 
 import json
 import time
@@ -15,7 +16,7 @@ from data.data_functions import *
 from data.schedule import compile_calendar
 from datetime import datetime, timedelta, time
 
-reset_data()
+# reset_data()
 
 app = Flask(__name__)
 debug = True
@@ -97,6 +98,7 @@ def machine():
         return render_template("machine.html", laserCutter = "checked", user = session['username'])
     if (request.args['machineName'] == "CNC"):
         return render_template("machine.html", CNC = "checked", user = session['username'])
+    
 
 @app.route("/confirmation", methods=["GET","POST"])
 def confirmation():
@@ -143,6 +145,11 @@ def confirmation():
     #     if (request.args['machineName'] == "CNC"):
     #         return render_template("machine.html", CNC = "checked", user = session["username"], error = "The input is not a valid integer")
     #     return render_template("machine.html")
+    print(session["username"])
+    print(request.args['machineName'])
+    print(machineUsage[request.args["machineName"]][0])
+    # print(request.args['time'])
+    new_reservations(session["username"], request.args['machineName'], machineUsage[request.args["machineName"]][0])
     return render_template("confirmation.html")
 
 @app.route("/register", methods=["GET", "POST"])
@@ -260,7 +267,6 @@ def signOutList():
         return render_template("signOut.html", laserCutter = "checked")
     if (request.args['machineName'] == "CNC"):
         return render_template("signOut.html", CNC = "checked")
-
     return render_template("signOut.html")
 @app.route("/signOut", methods=["GET","POST"])
 def signOut():
@@ -275,6 +281,10 @@ def signOut():
         if(waitlist[request.args["machineName"]] != "no"):
             sendemail.send(waitlist[request.args["machineName"]], "You may use the " + request.args["machineName"] + " now")
             waitlist[request.args["machineName"]] = "no"
+        print("ending")
+        print(session["username"])
+        print(request.args['machineName'])
+        end_reservations(request.args['machineName'])
         return("sign out successful")
     except:
         return("ERROR")
@@ -282,12 +292,37 @@ def signOut():
 
 @app.route("/reservation", methods=["GET","POST"])
 def reservation():
-    laser = machine_column("laser")
-    p1 = machine_column("3dp1")
-    p2 = machine_column("3dp2")
-    p3 = machine_column("3dp3")
-    strat = machine_column("stratasys")
-    cnc = machine_column("cnc")
+    # end_reservations("3D-printer2")
+    laser = machine_column("laser-cutter")
+    print(laser[1])
+    if laser[1] != '':
+        lt = str(round((datetime.fromisoformat(laser[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        laser[1] = lt
+
+    p1 = machine_column("3D-printer1")
+    if p1[1] != '':
+        p1t = str(round((datetime.fromisoformat(p1[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        p1[1] = p1t
+    
+    p2 = machine_column("3D-printer2")
+    if p2[1] != '':
+        p2t = str(round((datetime.fromisoformat(p2[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        p2[1] = p2t
+    
+    p3 = machine_column("3D-printer3")
+    if p3[1] != '':
+        p3t = str(round((datetime.fromisoformat(p3[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        p3[1] = p3t
+
+    strat = machine_column("3D-printer_Stratasys")
+    if strat[1] != '':
+        st = str(round((datetime.fromisoformat(strat[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        strat[1] = st
+    
+    cnc = machine_column("CNC")
+    if cnc[1] != '':
+        cnct = str(round((datetime.fromisoformat(cnc[1]) - datetime.now()).total_seconds() / 60)) + "minutes"
+        cnc[1] = cnct
     return render_template("reservation.html", laser = laser, p1 = p1, p2 = p2, p3 = p3, strat = strat, cnc = cnc)
 
 
