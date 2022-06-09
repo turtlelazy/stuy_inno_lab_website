@@ -47,3 +47,9 @@ Created skeleton of calendar CSS on new branch calendar_CSS.
 
 RyanW -- 2022-06-08 08:00
 Merged calendar_CSS back, finished the navbar and centering calendar.html page.
+
+RyanW -- 2022-06-09 08:30
+Almost complete CSS for calendar.html
+
+RyanW -- 2022-06-09 10:30
+Completed CSS for calendar.html (navbar, buttons, table, ordered list, etc.)

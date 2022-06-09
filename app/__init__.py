@@ -13,6 +13,7 @@ from data.users import user_exists, verify_user, create_user, get_username
 from os import urandom
 from data.data_functions import *
 from data.schedule import compile_calendar
+from datetime import datetime, timedelta, time
 
 reset_data()
 
@@ -22,15 +23,23 @@ app.secret_key = urandom(32)
 
 
 machineUsage =	{
-  "3D-printer": [],
+  "3D-printer1": [],
+  "3D-printer2": [],
+  "3D-printer3": [],
+  "3D-printer4": [],
+  "3D-printer_Stratasys": [],
   "laser-cutter": [],
-  "another machine": []
+  "CNC": []
 }
 
 waitlist = {
-    "3D-printer": "no",
+    "3D-printer1": "no",
+    "3D-printer2": "no",
+    "3D-printer3": "no",
+    "3D-printer4": "no",
+    "3D-printer_Stratasys": "no",
     "laser-cutter": "no",
-    "another machine": "no"
+    "CNC": "no"
 }
 
 # @app.route("/", methods=["GET","POST"])
@@ -59,37 +68,67 @@ def calendar():
 def machine():
     print(session["username"])
     # print(session["email"])
-    if (request.args['machine'] == "3D-printer"):
-        return render_template("machine.html", printer = "checked", user = session['username'])
-    if (request.args['machine'] == "laser-cutter"):
+    if (request.args['machineName'] == "3D-printer1"):
+        return render_template("machine.html", printer1 = "checked", user = session['username'])
+    if (request.args['machineName'] == "3D-printer2"):
+        return render_template("machine.html", printer2 = "checked", user = session['username'])
+    if (request.args['machineName'] == "3D-printer3"):
+        return render_template("machine.html", printer3 = "checked", user = session['username'])
+    if (request.args['machineName'] == "3D-printer4"):
+        return render_template("machine.html", printer4 = "checked", user = session['username'])
+    if (request.args['machineName'] == "3D-printer_Stratasys"):
+        return render_template("machine.html", printer_Stratasys = "checked", user = session['username'])
+    if (request.args['machineName'] == "laser-cutter"):
         return render_template("machine.html", laserCutter = "checked", user = session['username'])
-    if (request.args['machine'] == "another machine"):
-        return render_template("machine.html", anotherMachine = "checked", user = session['username'])
+    if (request.args['machineName'] == "CNC"):
+        return render_template("machine.html", CNC = "checked", user = session['username'])
 
 @app.route("/confirmation", methods=["GET","POST"])
 def confirmation():
-    print(request.args["machineName"]== "3D-printer")
-    # print("HELLO" + str(machineUsage[request.args["machineName"]][0]))
+    print(session["email"])
     int(request.args["time"])
     if (len(machineUsage[request.args["machineName"]]) == 0):
-        machineUsage[request.args["machineName"]].append(int(request.args["time"]))
-        machineUsage[request.args["machineName"]].append(email)
+        machineUsage[request.args["machineName"]].append(datetime.now() + timedelta(minutes = int(request.args["time"])))
+        machineUsage[request.args["machineName"]].append(session['email'])
 
     else:
-        return render_template("waitlist.html", machineName = request.args["machineName"])
-    print(machineUsage[request.args["machineName"]])
+        if(machineUsage[request.args["machineName"]][1] == session["email"]):
+            return render_template("machine.html", machineName = request.args["machineName"], user = session["username"], error = "You have already signed on to use this machine")
+        else:
+            return render_template("waitlist.html", machineName = request.args["machineName"], user = session["username"])
 
-
+    # print("HELLO" + str(machineUsage[request.args["machineName"]][0]))
+    # try:
+    #     int(request.args["time"])
+    #     if (len(machineUsage[request.args["machineName"]]) == 0):
+    #         machineUsage[request.args["machineName"]].append(int(request.args["time"]))
+    #         machineUsage[request.args["machineName"]].append(session['email'])
+    #         print(datetime.now().time())
+    #         print(datetime.now().time() + timedelta(minutes=10))
+    #     else:
+    #         if(machineUsage[request.args["machineName"]][1] == session["email"]):
+    #             return render_template("machine.html", machineName = request.args["machineName"], user = session["username"], error = "You have already signed on to use this machine")
+    #         else:
+    #             return render_template("waitlist.html", machineName = request.args["machineName"], user = session["username"])
+    #
+    #
     # except:
-    #     if (request.args['machineName'] == "3D-printer"):
-    #         return render_template("machine.html", printer = "checked")
+    #     if (request.args['machineName'] == "3D-printer1"):
+    #         return render_template("machine.html", printer1 = "checked", user = session["username"], error = "The input is not a valid integer")
+    #     if (request.args['machineName'] == "3D-printer2"):
+    #         return render_template("machine.html", printer2 = "checked", user = session["username"], error = "The input is not a valid integer")
+    #     if (request.args['machineName'] == "3D-printer3"):
+    #         return render_template("machine.html", printer3 = "checked", user = session["username"], error = "The input is not a valid integer")
+    #     if (request.args['machineName'] == "3D-printer4"):
+    #         return render_template("machine.html", printer4 = "checked", user = session["username"], error = "The input is not a valid integer")
+    #     if (request.args['machineName'] == "3D-printer_Stratasys"):
+    #         return render_template("machine.html", printer_Stratasys = "checked", user = session["username"], error = "The input is not a valid integer")
     #     if (request.args['machineName'] == "laser-cutter"):
-    #         return render_template("machine.html", laserCutter = "checked")
-    #     if (request.args['machineName'] == "another machine"):
-    #         return render_template("machine.html", anotherMachine = "checked")
+    #         return render_template("machine.html", laserCutter = "checked", user = session["username"], error = "The input is not a valid integer")
+    #     if (request.args['machineName'] == "CNC"):
+    #         return render_template("machine.html", CNC = "checked", user = session["username"], error = "The input is not a valid integer")
     #     return render_template("machine.html")
-    # return render_template("confirmation.html")
-    # print(type(request.args["time"]))
+    return render_template("confirmation.html")
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -167,12 +206,19 @@ def login():
 
 @app.route("/waitlistConfirmation", methods=["GET","POST"])
 def waitlistConfirmation():
-    if (waitlist[ request.args["machineName"]] == "no"):
-        sendemail.send(request.args["waitlist"], "The " + request.args["machineName"] + " will be available in "+ str(machineUsage[request.args["machineName"]][0])+ " minutes"
-        )
-        waitlist[request.args["machineName"]] = request.args["waitlist"]
+    if(request.args["submit"]=="yes"):
+        if (waitlist[request.args["machineName"]] == "no"):
+            if (machineUsage[request.args["machineName"]][0]-datetime.now()> timedelta(seconds = 1)):
+                sendemail.send(session["email"], "The " + request.args["machineName"] + " will be available in "+ str(round((machineUsage[request.args["machineName"]][0] - datetime.now()).total_seconds() / 60))+ " minutes"
+                )
+                waitlist[request.args["machineName"]] = session["email"]
+            else:
+                sendemail.send(session["email"], "The " + request.args["machineName"] + " will be available soon")
+                waitlist[request.args["machineName"]] = session["email"]
+        else:
+            return "There is already someone on the waitlist. Please try again later."
     else:
-        return "There is already someone on the waitlist. Please try again later."
+        return render_template("machinelist.html")
     return "Sent"
     # # try:
     #     msg = Message(subject='Test Email', sender='ftc789project@gmail.com', recipients=['22shriya.a@gmail.com'])
@@ -185,14 +231,38 @@ def waitlistConfirmation():
 
 @app.route("/signOutList", methods=["GET","POST"])
 def signOutList():
+    if (request.args['machineName'] == "3D-printer1"):
+        return render_template("signOut.html", printer1 = "checked")
+    if (request.args['machineName'] == "3D-printer2"):
+        return render_template("signOut.html", printer2 = "checked")
+    if (request.args['machineName'] == "3D-printer3"):
+        return render_template("signOut.html", printer3 = "checked")
+    if (request.args['machineName'] == "3D-printer4"):
+        return render_template("signOut.html", printer4 = "checked")
+    if (request.args['machineName'] == "3D-printer_Stratasys"):
+        return render_template("signOut.html", printer_Stratasys = "checked")
+    if (request.args['machineName'] == "laser-cutter"):
+        return render_template("signOut.html", laserCutter = "checked")
+    if (request.args['machineName'] == "CNC"):
+        return render_template("signOut.html", CNC = "checked")
+
     return render_template("signOut.html")
 @app.route("/signOut", methods=["GET","POST"])
 def signOut():
-    machineUsage[request.args["machineName"]] = []
-    if(waitlist[request.args["machineName"]] != "no"):
-        sendemail.send(waitlist[request.args["machineName"]], "You may use the machine now")
-        waitlist[request.args["machineName"]] = "no"
-    return("sign out successful")
+    try:
+        if (len(machineUsage[request.args["machineName"]]) == 0):
+            return("ERROR: This machine is not in use. You may not sign out from a machine not in use.")
+
+        if (machineUsage[request.args["machineName"]][1] != session["email"]):
+            return("ERROR: You may not sign out from a machine you are not using.")
+
+        machineUsage[request.args["machineName"]] = []
+        if(waitlist[request.args["machineName"]] != "no"):
+            sendemail.send(waitlist[request.args["machineName"]], "You may use the " + request.args["machineName"] + " now")
+            waitlist[request.args["machineName"]] = "no"
+        return("sign out successful")
+    except:
+        return("ERROR")
 
 
 @app.route("/reservation", methods=["GET","POST"])
