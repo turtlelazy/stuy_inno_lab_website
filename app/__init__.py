@@ -6,6 +6,7 @@ import imghdr
 
 import json
 import time
+from data.machines import *
 import sendemail
 
 from data.users import user_exists, verify_user, create_user, get_username
@@ -13,7 +14,7 @@ from os import urandom
 from data.data_functions import *
 from data.schedule import compile_calendar
 
-#reset_data()
+reset_data()
 
 app = Flask(__name__)
 debug = True
@@ -192,6 +193,18 @@ def signOut():
         sendemail.send(waitlist[request.args["machineName"]], "You may use the machine now")
         waitlist[request.args["machineName"]] = "no"
     return("sign out successful")
+
+
+@app.route("/reservation", methods=["GET","POST"])
+def reservation():
+    laser = machine_column("laser")
+    p1 = machine_column("3dp1")
+    p2 = machine_column("3dp2")
+    p3 = machine_column("3dp3")
+    strat = machine_column("stratasys")
+    cnc = machine_column("cnc")
+    return render_template("reservation.html", laser = laser, p1 = p1, p2 = p2, p3 = p3, strat = strat, cnc = cnc)
+
 
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified

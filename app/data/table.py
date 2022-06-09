@@ -5,6 +5,9 @@ def list_to_string(lst):
 def add_type(field_name):
     return f"{field_name} TEXT"
 
+def add_other_types(field_name, field_type):
+    return f"{field_name} {field_type}"
+
 
 def get_question_mark(thing):
     return "?"
@@ -84,6 +87,18 @@ class Table:
             f"CREATE TABLE IF NOT EXISTS {self.table_name} {field_string}")
         self.db.commit()
 
+    def create_not_text(self,field_names):
+        fields = []
+        for f in field_names:
+            if field_names[f] == "TEXT":
+                fields.append(add_type(f))
+            else:
+                fields.append(add_other_types(f, field_names[f]))
+        field_string = list_to_string(fields)
+        self.c.execute(
+            f"CREATE TABLE IF NOT EXISTS {self.table_name} {field_string}")
+        self.db.commit()
+
     def get_non_main_value(self, search_type, search_query, value):
         ""
         self.c.execute(
@@ -114,3 +129,7 @@ class Table:
             f"SELECT {self.search_field} FROM {self.table_name} {conditional_string}")
         print(conditional_string)
         return self.c.fetchone()
+    
+    def update_value(self, field, new, search_query):
+        self.c.execute(f"UPDATE {self.table_name} SET {field} = {new} WHERE {self.search_field} = '{search_query}'")
+        self.db.commit()
