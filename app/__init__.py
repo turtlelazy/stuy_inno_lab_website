@@ -53,6 +53,12 @@ def calendar():
     return render_template("calendar.html", calendarSchedule = compile_calendar())
 
 
+@app.route("/admin_calendar")
+def admin_calendar():
+    print(compile_calendar())
+    return render_template("admin_calendar.html", calendarSchedule=compile_calendar())
+
+
 @app.route("/machine", methods=["GET","POST"])
 def machine():
     if (request.args['machine'] == "3D-printer"):
