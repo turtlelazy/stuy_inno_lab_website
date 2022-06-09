@@ -5,16 +5,23 @@
     Please submit if you are done using the <span id = "mt"> machine </span>
     <br>
     <br>
-    <input type="text" name="user">
-    <br>
+
 
     <div id = "container">
-        <input type="radio" id="3D-printer" name="machineName" value="3D-printer" onchange="getValue(this)" {{printer}}>
-        <label for="3D-printer">3D-printer</label><br>
+        <input type="radio" id="3D-printer1" name="machineName" value="3D-printer1" onchange="getValue(this)" {{printer1}}>
+        <label for="3D-printer1">3D-printer1</label><br>
+        <input type="radio" id="3D-printer2" name="machineName" value="3D-printer2" onchange="getValue(this)" {{printer2}}>
+        <label for="3D-printer2">3D-printer2</label><br>
+        <input type="radio" id="3D-printer3" name="machineName" value="3D-printer3" onchange="getValue(this)" {{printer3}}>
+        <label for="3D-printer3">3D-printer3</label><br>
+        <input type="radio" id="3D-printer4" name="machineName" value="3D-printer4" onchange="getValue(this)" {{printer4}}>
+        <label for="3D-printer4">3D-printer4</label><br>
+        <input type="radio" id="3D-printer_Stratasys" name="machineName" value="3D-printer_Stratasys" onchange="getValue(this)" {{printer_Stratasys}}>
+        <label for="3D-printer_Stratasys">3D-printer_Stratasys</label><br>
         <input type="radio" id="laser cutter" name="machineName" value="laser-cutter" onchange="getValue(this)" {{laserCutter}}>
         <label for="laser cutter">LASER CUTTER</label><br>
-        <input type="radio" id="another machine" name="machineName" value="another-machine" onchange="getValue(this)" {{anotherMachine}}>
-        <label for="another machine">ANOTHER MACHINE</label>
+        <input type="radio" id="CNC" name="machineName" value="CNC" onchange="getValue(this)" {{CNC}}>
+        <label for="CNC">CNC</label><br>
         <br>
     </div>
     <br>
@@ -29,15 +36,29 @@
   var input = document.getElementsByTagName('radioButtons');
   var output = document.getElementById("mt");
 
-  if (document.getElementById('3D-printer').checked){
-    output.innerHTML = "3D-printer";
+  if (document.getElementById('3D-printer1').checked){
+    output.innerHTML = "3D-printer1";
+  }
+  if (document.getElementById('3D-printer2').checked){
+    output.innerHTML = "3D-printer2";
+  }
+  if (document.getElementById('3D-printer3').checked){
+    output.innerHTML = "3D-printer3";
+  }
+  if (document.getElementById('3D-printer4').checked){
+    output.innerHTML = "3D-printer4";
+  }
+  if (document.getElementById('3D-printer_Stratasys').checked){
+    output.innerHTML = "3D-printer_Stratasys";
   }
   if (document.getElementById('laser cutter').checked){
     output.innerHTML = "LASER CUTTER";
   }
-  if (document.getElementById('another machine').checked){
-    output.innerHTML = "ANOTHER MACHINE";
+  if (document.getElementById('CNC').checked){
+    output.innerHTML = "CNC";
   }
+
+
 
   function getValue(radio) {
         output.innerHTML = radio.value;
