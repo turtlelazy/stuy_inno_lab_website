@@ -4,7 +4,12 @@
   --my-orange: #dc965aff;
   --my-white: #e7ecefff;
   --my-black: #313638ff;
-  --my-blue: #468c98ff;
+  /* --my-blue: #468c98ff; */
+  --my-blue: #00B4D8;
+  --my-light-blue: #90E0EF;
+  --my-dark-blue:  #03045E;
+  --my-pale-blue: #ADD8E6;
+
   --my-copper: #9b6a6cff;
 
   /* other examples */
@@ -21,7 +26,7 @@ html {
 body {
   display: table-cell;
   vertical-align: middle;
-  background:var(--my-blue);
+  background:var(--my-pale-blue);
   font-family: var(--my-font-family);
 }
 
@@ -43,14 +48,14 @@ button {
 
 /* Add a black background color to the top navigation */
 .topnav {
-  background-color: var(--my-black);
+  background-color: var(--my-dark-blue);
   overflow: hidden;
 }
 
 /* Style the links inside the navigation bar */
 .topnav a {
   float: left;
-  color: var(--my-copper);
+  color: var(--my-white);
   text-align: center;
   padding: 2.5% 0px;
   text-decoration: none;
@@ -66,7 +71,7 @@ button {
 
 /* Add a color to the active/current link */
 .topnav a.active {
-  background-color: var(--my-orange);
+  background-color: var(--my-light-blue);
   color: var(--my-white);
 }
 /* TEST */
@@ -119,14 +124,14 @@ td:nth-child(even) {
   background-color: var(--my-white);
 }
 td:nth-child(odd) {
-  background-color: grey;
+  background-color: var(--my-light-blue);
 }
 
 /* alternate pattern */
 td:first-child,
 td:last-child 
 {
-  background-color: var(--my-copper);
+  background-color: var(--my-dark-blue);
 }
 
 li {
