@@ -113,20 +113,23 @@ def machine():
         return redirect("/")
     print(session["username"])
     # print(session["email"])
-    if (request.args['machineName'] == "3D-printer1"):
-        return render_template("machine.html", printer1 = "checked", user = session['username'])
-    if (request.args['machineName'] == "3D-printer2"):
-        return render_template("machine.html", printer2 = "checked", user = session['username'])
-    if (request.args['machineName'] == "3D-printer3"):
-        return render_template("machine.html", printer3 = "checked", user = session['username'])
-    if (request.args['machineName'] == "3D-printer4"):
-        return render_template("machine.html", printer4 = "checked", user = session['username'])
-    if (request.args['machineName'] == "3D-printer_Stratasys"):
-        return render_template("machine.html", printer_Stratasys = "checked", user = session['username'])
-    if (request.args['machineName'] == "laser-cutter"):
-        return render_template("machine.html", laserCutter = "checked", user = session['username'])
-    if (request.args['machineName'] == "CNC"):
-        return render_template("machine.html", CNC = "checked", user = session['username'])
+    try:
+        if (request.args['machineName'] == "3D-printer1"):
+            return render_template("machine.html", printer1 = "checked", user = session['username'])
+        if (request.args['machineName'] == "3D-printer2"):
+            return render_template("machine.html", printer2 = "checked", user = session['username'])
+        if (request.args['machineName'] == "3D-printer3"):
+            return render_template("machine.html", printer3 = "checked", user = session['username'])
+        if (request.args['machineName'] == "3D-printer4"):
+            return render_template("machine.html", printer4 = "checked", user = session['username'])
+        if (request.args['machineName'] == "3D-printer_Stratasys"):
+            return render_template("machine.html", printer_Stratasys = "checked", user = session['username'])
+        if (request.args['machineName'] == "laser-cutter"):
+            return render_template("machine.html", laserCutter = "checked", user = session['username'])
+        if (request.args['machineName'] == "CNC"):
+            return render_template("machine.html", CNC = "checked", user = session['username'])
+    except(Exception):
+            return render_template("error.html", message="machine list error")
     
 
 @app.route("/confirmation", methods=["GET","POST"])
