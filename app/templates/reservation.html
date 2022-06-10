@@ -1,18 +1,35 @@
 <html>
+
+  <head>
+    <title>machine tabel</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+  </head>
+
 <body>
 
   <table>
     <tr>
       <th>Machine</th>
       <th>User</th>
-      <th>Time</th>
-      <th>Use</th>
+      <th>Time Left</th>
+      <th>Use/Sign Out</th>
     </tr>
     <tr>
       <td>CNC</td>
       <td>{{cnc[0]}}</td>
       <td>{{cnc[1]}}</td>
-      <td>{{cnc[2]}}</td>
+      <td>
+        {% if cnc[2] == "not in use" %}
+          <form action="/machine">
+            <input type="submit" name="machineName" value = "CNC">
+          </form>
+        {% else %}
+        <form action="/signOutList">
+          <input type="submit" name="machineName" value = "CNC">
+        </form>
+        {% endif %}
+
+      </td>
       
       
     </tr>
@@ -20,19 +37,50 @@
       <td>3dp 1</td>
       <td>{{p1[0]}}</td>
       <td>{{p1[1]}}</td>
-      <td>{{p1[2]}}</td>
+      <td>
+        {% if p1[2] == "not in use" %}
+          <form action="/machine">
+            <input type="submit" name="machineName" value = "3D-printer1">
+          </form>
+        {% else %}
+        <form action="/signOutList">
+          <input type="submit" name="machineName" value = "3D-printer1">
+        </form>
+        {% endif %}
+      </td>
     </tr>
     <tr>
       <td>3dp 2</td>
       <td>{{p2[0]}}</td>
       <td>{{p2[1]}}</td>
-      <td>{{p2[2]}}</td>
+      <td>
+        {% if p2[2] == "not in use" %}
+          <form action="/machine">
+            <input type="submit" name="machineName" value = "3D-printer2">
+          </form>
+        {% else %}
+        <form action="/signOutList">
+          <input type="submit" name="machineName" value = "3D-printer2">
+        </form>
+        {% endif %}
+      </td>
     </tr>
     <tr>
       <td>3dp 3</td>
       <td>{{p3[0]}}</td>
       <td>{{p3[1]}}</td>
-      <td>{{p3[2]}}</td>
+      <td>
+        {% if p3[2] == "not in use" %}
+          <form action="/machine">
+            <input type="submit" name="machineName" value = "3D-printer3">
+          </form>
+        {% else %}
+        <form action="/signOutList">
+          <input type="submit" name="machineName" value = "3D-printer3">
+        </form>
+        {% endif %}
+
+      </td>
     </tr>
     <!-- <tr>
       <td>3dp 4</td>
@@ -44,16 +92,41 @@
       <td>3dp stratysys</td>
       <td>{{strat[0]}}</td>
       <td>{{strat[1]}}</td>
-      <td>{{strat[2]}}</td>
+      <td>
+        {% if strat[2] == "not in use" %}
+          <form action="/machine">
+            <input type="submit" name="machineName" value = "3D-printer_Stratasys">
+          </form>
+        {% else %}
+        <form action="/signOutList">
+          <input type="submit" name="machineName" value = "3D-printer_Stratasys">
+        </form>
+        {% endif %}
+
+      </td>
     </tr>
     <tr>
       <td>Laser</td>
       <td>{{laser[0]}}</td>
       <td>{{laser[1]}}</td>
-      <td>{{laser[2]}}</td>
+      <td>
+        {% if laser[2] == "not in use" %}
+          <form action="/machine">
+            <input type="submit" name="machineName" value = "laser-cutter">
+          </form>
+        {% else %}
+        <form action="/signOutList">
+          <input type="submit" name="machineName" value = "laser-cutter">
+        </form>
+        {% endif %}
+
+      </td>
     </tr>
   </table>
+
   <a href="{{ url_for('index') }}">back</a>
 
-</body>
+
+  
+
 </html>
