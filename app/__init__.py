@@ -16,7 +16,7 @@ from data.data_functions import *
 from data.schedule import compile_calendar
 from datetime import datetime, timedelta, time
 
-reset_data()
+# reset_data()
 
 app = Flask(__name__)
 debug = True
@@ -219,7 +219,11 @@ def login():
                 return redirect(url_for("index"))
 
 
-
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    if "username" in session:
+        del session["username"]
+    return redirect(url_for("index"))
 
 
 
@@ -292,7 +296,8 @@ def signOut():
 
 @app.route("/reservation", methods=["GET","POST"])
 def reservation():
-    # end_reservations("3D-printer2")
+    # end_reservations("3D-printer1")
+    # end_reservations("laser-cutter")
     laser = machine_column("laser-cutter")
     print(laser[1])
     if laser[1] != '':
