@@ -42,6 +42,9 @@ Figured out sending out email through python
 IshraqM -- 2022-06-05 22:43
 Calendar allows for selecting days and seeing day schedule -> need to move to stage where db incorporates machine and day info
 
+IshraqM -- 2022-06-07 8:00
+DB incorporates calendar information. Working on algorithms and admin UI for editing calendar info.
+
 RyanW -- 2022-06-02 22:30
 Created skeleton of calendar CSS on new branch calendar_CSS.
 
@@ -53,3 +56,6 @@ Almost complete CSS for calendar.html
 
 RyanW -- 2022-06-09 10:30
 Completed CSS for calendar.html (navbar, buttons, table, ordered list, etc.)
+
+IshraqM -- 2022-06-09 10:45
+Calendar integrated with DB. Admin UI created. Need to move to usability stage and bug fixing.
