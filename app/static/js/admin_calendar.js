@@ -145,12 +145,17 @@ function daySelect(event){
         highlightedDay = (event.target.id);
         console.log(highlightedDay);
         document.getElementById(highlightedDay).style.backgroundColor = "yellow";
-        monthData = monthSchedule(year,month)["schedule"];
-        console.log(monthData);
-        console.log(monthData[parseInt(highlightedDay)]);
-        document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
-        date = new Date(year,month-1,highlightedDay);
-        defaultDailyTableSet(isWeekend(date) && document.getElementById("editOption").value == "currentDay");
+        if (monthSchedule(year, month)) {
+            monthData = monthSchedule(year,month)["schedule"];
+            console.log(monthData);
+            console.log(monthData[parseInt(highlightedDay)]);
+            document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
+            date = new Date(year,month-1,highlightedDay);
+            defaultDailyTableSet(isWeekend(date) && document.getElementById("editOption").value == "currentDay");
+        }
+        else {
+            document.getElementById("schedule").innerHTML = dayScheduleFormatter({});
+        }
     }
 }
 
@@ -266,6 +271,9 @@ function sendPayload(json) {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "/edit_request", true);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function(){
+        window.location.href = "/";
+    }
     xhr.send(JSON.stringify(
         json
     ));
@@ -313,6 +321,7 @@ function saveChangesHandler(){
         sendPayload(calendarSchedule[monthNumber]);
     }
 
+
     // console.log('saveing changes');
     // if(options_value == "currentDay"){
     //     useList = defaultTimePeriods;
@@ -349,7 +358,6 @@ function saveChangesHandler(){
     //     sendPayload({"month":month,"year":year,"schedule":compiledInfo});
     // }
     
-
 }
 
 defaultDailyTableSet();

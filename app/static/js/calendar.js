@@ -145,10 +145,15 @@ function daySelect(event) {
         highlightedDay = (event.target.id);
         console.log(highlightedDay);
         document.getElementById(highlightedDay).style.backgroundColor = "yellow";
-        monthData = monthSchedule(year, month)["schedule"];
-        console.log(monthData);
-        console.log(monthData[parseInt(highlightedDay)]);
-        document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
+        if (monthSchedule(year, month)){
+            monthData = monthSchedule(year, month)["schedule"];
+            console.log(monthData);
+            console.log(monthData[parseInt(highlightedDay)]);
+            document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
+        }
+        else{
+            document.getElementById("schedule").innerHTML = dayScheduleFormatter({});
+        }
     }
 }
 
