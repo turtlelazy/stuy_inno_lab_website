@@ -320,43 +320,6 @@ function saveChangesHandler(){
         editSingleDay(parseInt(highlightedDay),compiledInfo);
         sendPayload(calendarSchedule[monthNumber]);
     }
-
-
-    // console.log('saveing changes');
-    // if(options_value == "currentDay"){
-    //     useList = defaultTimePeriods;
-    //     if(isWeekend(new Date(year,month-1,highlightedDay))) useList = defaultWeekendPeriod;
-
-    //     compiledInfo = compileEditInfo("defaultScheduleEdit",useList);
-    //     editSingleDay(parseInt(highlightedDay),compiledInfo);
-    // }
-    // else{
-    //     editMonth();
-    // }
-
-    // let monthNumber = null;
-    // for (let i = 0; i < calendarSchedule.length; i++) {
-    //     if (calendarSchedule[i]["month"] == month && calendarSchedule[i]["year"] == year) {
-    //         monthNumber = i;
-    //     }
-    // }
-
-    // if(monthNumber){
-    //     let monthInfo = calendarSchedule[i];
-    //     sendPayload(monthInfo);
-    // }
-
-    // else{
-    //     let monthSchedule = [];
-    //     for (let day = 1; day <= daysInMonth(month,year);day++){
-    //         if(!isWeekend(new Date(year,month,day))){
-    //             monthSchedule.push(copmile)
-    //         }
-    //     }
-
-    //     console.log("NULL MONTH");
-    //     sendPayload({"month":month,"year":year,"schedule":compiledInfo});
-    // }
     
 }
 

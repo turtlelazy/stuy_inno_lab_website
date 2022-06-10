@@ -13,7 +13,7 @@ def create_calendar(year,month,schedule_JSON):
 
 def edit_calendar(year,month,schedule_JSON):
     calendar.delete_value_from_conditions(["year", "month"], [year, month])
-    create_calendar(year,month,schedule_JSON)
+    admin_calendar_creation(year,month,schedule_JSON)
 
 def admin_calendar_creation(year,month,default_Schedule_JSON):
     #schedule_JSON is a list of the schedules in the days of the week from Monday to Sunday, as a list of dictionaries

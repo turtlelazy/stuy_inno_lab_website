@@ -304,19 +304,19 @@ def signOutList():
         return redirect("/")
 
     if (request.args['machineName'] == "3D-printer1"):
-        return render_template("signOut.html", printer1="checked", user=session['username'])
+        return render_template("signOut.html", printer1="checked")
     if (request.args['machineName'] == "3D-printer2"):
-        return render_template("signOut.html", printer2="checked", user=session['username'])
+        return render_template("signOut.html", printer2="checked")
     if (request.args['machineName'] == "3D-printer3"):
-        return render_template("signOut.html", printer3="checked", user=session['username'])
+        return render_template("signOut.html", printer3="checked")
     if (request.args['machineName'] == "3D-printer4"):
-        return render_template("signOut.html", printer4="checked", user=session['username'])
+        return render_template("signOut.html", printer4="checked")
     if (request.args['machineName'] == "3D-printer_Stratasys"):
-        return render_template("signOut.html", printer_Stratasys="checked", user=session['username'])
+        return render_template("signOut.html", printer_Stratasys="checked")
     if (request.args['machineName'] == "laser-cutter"):
-        return render_template("signOut.html", laserCutter="checked", user=session['username'])
+        return render_template("signOut.html", laserCutter="checked")
     if (request.args['machineName'] == "CNC"):
-        return render_template("signOut.html", CNC="checked", user=session['username'])
+        return render_template("signOut.html", CNC="checked")
     return render_template("signOut.html")
 
 @app.route("/signOut", methods=["GET","POST"])
