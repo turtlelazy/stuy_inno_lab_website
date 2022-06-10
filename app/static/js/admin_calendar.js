@@ -140,16 +140,18 @@ document.getElementById("nextMonth").addEventListener("click", function(e){updat
 let highlightedDay = "1";
 
 function daySelect(event){
-    document.getElementById(highlightedDay).style.backgroundColor = "white";
-    highlightedDay = (event.target.id);
-    console.log(highlightedDay);
-    document.getElementById(highlightedDay).style.backgroundColor = "yellow";
-    monthData = monthSchedule(year,month)["schedule"];
-    console.log(monthData);
-    console.log(monthData[parseInt(highlightedDay)]);
-    document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
-    date = new Date(year,month-1,highlightedDay);
-    defaultDailyTableSet(isWeekend(date) && document.getElementById("editOption").value == "currentDay");
+    if (event.target.id) {
+        document.getElementById(highlightedDay).style.backgroundColor = "white";
+        highlightedDay = (event.target.id);
+        console.log(highlightedDay);
+        document.getElementById(highlightedDay).style.backgroundColor = "yellow";
+        monthData = monthSchedule(year,month)["schedule"];
+        console.log(monthData);
+        console.log(monthData[parseInt(highlightedDay)]);
+        document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
+        date = new Date(year,month-1,highlightedDay);
+        defaultDailyTableSet(isWeekend(date) && document.getElementById("editOption").value == "currentDay");
+    }
 }
 
 
