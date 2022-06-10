@@ -1,3 +1,4 @@
+from data.users import admin_verification
 from data.schedule import admin_calendar_creation
 from data.schedule import calendar_exists, create_calendar, edit_calendar
 from flask import Flask, render_template, request, session, redirect, url_for
@@ -51,19 +52,26 @@ waitlist = {
 
 
 @app.route("/", methods=["GET","POST"])
-@app.route("/index", methods=["GET","POST"])
 def index():
     if session.get('username') is not None:
-        user = session['username']
-        # return render_template("profile.html", user=user)
-        e = session['email']
-        return render_template("machinelist.html", user=user, email = e)
+
+        return render_template("calendar.html", calendarSchedule=compile_calendar())
     else:
         return render_template("homepage.html")
 
+@app.route("/machine_list",methods=["GET","POST"])
+def machine_list():
+    user = session['username']
+        # return render_template("profile.html", user=user)
+    e = session['email']
+    return render_template("machinelist.html", user=user, email=e)
 
 @app.route("/edit_request", methods=["GET","POST"])
 def edit():
+
+    if session.get('username') is None:
+        return redirect("/")
+
     payload = request.get_json()
     print(payload)
     month = payload["month"]
@@ -85,18 +93,24 @@ def edit():
 
 @app.route("/calendar")
 def calendar():
+    if session.get('username') is None:
+        return redirect("/")
     print(compile_calendar())
-    return render_template("calendar.html", calendarSchedule = compile_calendar())
+    return render_template("calendar.html", calendarSchedule=compile_calendar())
 
 
 @app.route("/admin_calendar")
 def admin_calendar():
+    if session.get('username') is None or not admin_verification(session["email"]):
+        return redirect("/")
     print(compile_calendar())
     return render_template("admin_calendar.html", calendarSchedule=compile_calendar())
 
 
 @app.route("/machine", methods=["GET","POST"])
 def machine():
+    if session.get('username') is None:
+        return redirect("/")
     print(session["username"])
     # print(session["email"])
     if (request.args['machineName'] == "3D-printer1"):
@@ -117,6 +131,8 @@ def machine():
 
 @app.route("/confirmation", methods=["GET","POST"])
 def confirmation():
+    if session.get('username') is None:
+        return redirect("/")
     print(session["email"])
     int(request.args["time"])
     if (len(machineUsage[request.args["machineName"]]) == 0):
@@ -237,7 +253,7 @@ def login():
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
     if "username" in session:
-        del session["username"]
+        session["username"] = None
     return redirect(url_for("index"))
 
 
@@ -247,6 +263,9 @@ def logout():
 
 @app.route("/waitlistConfirmation", methods=["GET","POST"])
 def waitlistConfirmation():
+    if session.get('username') is None:
+        return redirect("/")
+
     if(request.args["submit"]=="yes"):
         if (waitlist[request.args["machineName"]] == "no"):
             if (machineUsage[request.args["machineName"]][0]-datetime.now()> timedelta(seconds = 1)):
@@ -272,6 +291,9 @@ def waitlistConfirmation():
 
 @app.route("/signOutList", methods=["GET","POST"])
 def signOutList():
+    if session.get('username') is None:
+        return redirect("/")
+
     if (request.args['machineName'] == "3D-printer1"):
         return render_template("signOut.html", printer1 = "checked")
     if (request.args['machineName'] == "3D-printer2"):
@@ -287,8 +309,12 @@ def signOutList():
     if (request.args['machineName'] == "CNC"):
         return render_template("signOut.html", CNC = "checked")
     return render_template("signOut.html")
+
 @app.route("/signOut", methods=["GET","POST"])
 def signOut():
+    if session.get('username') is None:
+        return redirect("/")
+
     try:
         if (len(machineUsage[request.args["machineName"]]) == 0):
             return("ERROR: This machine is not in use. You may not sign out from a machine not in use.")
@@ -311,6 +337,9 @@ def signOut():
 
 @app.route("/reservation", methods=["GET","POST"])
 def reservation():
+    if session.get('username') is None:
+        return redirect("/")
+
     # end_reservations("3D-printer1")
     # end_reservations("laser-cutter")
     laser = machine_column("laser-cutter")
@@ -345,8 +374,8 @@ def reservation():
         cnc[1] = cnct
     return render_template("reservation.html", laser = laser, p1 = p1, p2 = p2, p3 = p3, strat = strat, cnc = cnc)
 
-
 if __name__ == "__main__": #false if this file imported as module
     #enable debugging, auto-restarting of server when this file is modified
     app.debug = True
     app.run()
+    

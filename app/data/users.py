@@ -22,6 +22,9 @@ def create_user(email, username,password,user_type):
     users.add_values([email, username,hashed,salt,user_type])
     return True
 
+def admin_verification(email):
+    return users.get_value(email,"user_type") == "admin"
+
 def get_salt(email):
     return users.get_value(email,"salt")
 def get_hash(email):

@@ -7,11 +7,10 @@
 
     <!-- ADD LINKS TO NAVBAR -->
     <div class="topnav">
-      <a href="" >Home</a>
-      <a href="" class="active">Calendar</a>
-      <a href="" >Admin Portal</a>
-      <a href="" >Machines</a>
-      <a href="" >Logout</a>
+      <a href="/" class="active">Home</a>
+      <a href="/admin_calendar" >Admin Portal</a>
+      <a href="/reservation" >Machines</a>
+      <a href="/logout" >Logout</a>
     </div>
 
     <body>
@@ -29,41 +28,6 @@
 
             <h2>Schedule</h2>
             <table id = "schedule"></table>
-        </div>
-
-        <div id="infoDiv">
-            <table id="schedule"></table>
-            
-            <h1>Monthly Announcements & Reminders</h1>
-            <!-- TESTING -->
-            <ul>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-            </ul>
-            <!-- TESTING -->
         </div>
     </body>
     <script>let calendarSchedule = JSON.parse('{{ calendarSchedule | tojson | safe}}');</script>

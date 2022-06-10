@@ -69,10 +69,10 @@ button {
 }
 
 /* Add a color to the active/current link */
-.topnav a.active {
+/* .topnav a.active {
   background-color: var(--my-light-blue);
   color: var(--my-white);
-}
+} */
 /* TEST */
 /* TEST */
 
