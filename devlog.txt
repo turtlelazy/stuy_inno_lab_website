@@ -59,3 +59,6 @@ Completed CSS for calendar.html (navbar, buttons, table, ordered list, etc.)
 
 IshraqM -- 2022-06-09 10:45
 Calendar integrated with DB. Admin UI created. Need to move to usability stage and bug fixing.
+
+IshraqM -- 2022-06-10 3:15
+CSS finished. Calendar bugs squashed. Demo video recorded. Le Fin.

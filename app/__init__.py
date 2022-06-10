@@ -83,11 +83,14 @@ def edit():
     #print(payload)
     #print(schedule)
     print(calendar_exists(year,month))
+    print(not payload["edit"])
 
     if(calendar_exists(year,month)):
-        edit_calendar(year,month,schedule)
+        print("calendar exists!")
+        edit_calendar(int(year), int(month), schedule, not payload["edit"])
     else:
-        admin_calendar_creation(year,month,schedule)
+        print("calendar does not exist!")
+        admin_calendar_creation(int(year),int(month),schedule)
     
     return "you should not be here!"
 

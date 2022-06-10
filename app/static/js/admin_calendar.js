@@ -289,10 +289,12 @@ function saveChangesHandler(){
     }
 
     if(options_value == "currentMonth"){
+
         compiledInfo = compileEditInfo("defaultScheduleEdit",defaultTimePeriods);
         if(monthNumber){
             editMonth();
             console.log(calendarSchedule[monthNumber])
+            calendarSchedule[monthNumber]["edit"] = false;
             sendPayload(calendarSchedule[monthNumber]);
         }
 
@@ -307,7 +309,7 @@ function saveChangesHandler(){
                 }
             }
 
-            sendPayload({month:month,year:year,schedule:weekSchedule});
+            sendPayload({month:month,year:year,schedule:weekSchedule,edit:false});
         }
 
     }
@@ -318,6 +320,7 @@ function saveChangesHandler(){
 
         compiledInfo = compileEditInfo("defaultScheduleEdit",useList);
         editSingleDay(parseInt(highlightedDay),compiledInfo);
+        calendarSchedule[monthNumber]["edit"] = true;
         sendPayload(calendarSchedule[monthNumber]);
     }
     
