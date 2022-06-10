@@ -69,7 +69,7 @@ def machine_list():
 @app.route("/edit_request", methods=["GET","POST"])
 def edit():
 
-    if session.get('username') is None:
+    if session.get('username') is None or not admin_verification(session["email"]):
         return redirect("/")
 
     payload = request.get_json()
