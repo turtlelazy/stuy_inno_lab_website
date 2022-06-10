@@ -302,6 +302,15 @@ function saveChangesHandler(){
 
     }
 
+    else if(options_value == "currentDay"){
+        useList = defaultTimePeriods;
+        if(isWeekend(new Date(year,month-1,highlightedDay))) useList = defaultWeekendPeriod;
+
+        compiledInfo = compileEditInfo("defaultScheduleEdit",useList);
+        editSingleDay(parseInt(highlightedDay),compiledInfo);
+        sendPayload(calendarSchedule[monthNumber]);
+    }
+
     // console.log('saveing changes');
     // if(options_value == "currentDay"){
     //     useList = defaultTimePeriods;
