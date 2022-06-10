@@ -113,6 +113,7 @@ def machine():
         return redirect("/")
     print(session["username"])
     # print(session["email"])
+ 
     if (request.args['machineName'] == "3D-printer1"):
         return render_template("machine.html", printer1 = "checked", user = session['username'])
     if (request.args['machineName'] == "3D-printer2"):
@@ -127,6 +128,7 @@ def machine():
         return render_template("machine.html", laserCutter = "checked", user = session['username'])
     if (request.args['machineName'] == "CNC"):
         return render_template("machine.html", CNC = "checked", user = session['username'])
+   
     
 
 @app.route("/confirmation", methods=["GET","POST"])
@@ -139,16 +141,16 @@ def confirmation():
     except:
         return render_template("machine.html", machineName=request.args["machineName"], user=session["username"], error="Please enter an integer number of minutes")
 
-    try:
-        if (len(machineUsage[request.args["machineName"]]) == 0):
-            machineUsage[request.args["machineName"]].append(datetime.now() + timedelta(minutes = int(request.args["time"])))
-            machineUsage[request.args["machineName"]].append(session['email'])
+    
+    if (len(machineUsage[request.args["machineName"]]) == 0):
+        machineUsage[request.args["machineName"]].append(datetime.now() + timedelta(minutes = int(request.args["time"])))
+        machineUsage[request.args["machineName"]].append(session['email'])
 
+    else:
+        if(machineUsage[request.args["machineName"]][1] == session["email"]):
+            return render_template("machine.html", machineName = request.args["machineName"], user = session["username"], error = "You have already signed on to use this machine")
         else:
-            if(machineUsage[request.args["machineName"]][1] == session["email"]):
-                return render_template("machine.html", machineName = request.args["machineName"], user = session["username"], error = "You have already signed on to use this machine")
-            else:
-                return render_template("waitlist.html", machineName = request.args["machineName"], user = session["username"])
+            return render_template("waitlist.html", machineName = request.args["machineName"], user = session["username"])
 
         # print("HELLO" + str(machineUsage[request.args["machineName"]][0]))
         # try:
@@ -181,14 +183,13 @@ def confirmation():
         #     if (request.args['machineName'] == "CNC"):
         #         return render_template("machine.html", CNC = "checked", user = session["username"], error = "The input is not a valid integer")
         #     return render_template("machine.html")
-        print(session["username"])
-        print(request.args['machineName'])
-        print(machineUsage[request.args["machineName"]][0])
-        # print(request.args['time'])
-        new_reservations(session["username"], request.args['machineName'], machineUsage[request.args["machineName"]][0])
-        return render_template("confirmation.html")
-    except(Exception):
-            return render_template("error.html", message="confrimation error")
+    print(session["username"])
+    print(request.args['machineName'])
+    print(machineUsage[request.args["machineName"]][0])
+    # print(request.args['time'])
+    new_reservations(session["username"], request.args['machineName'], machineUsage[request.args["machineName"]][0])
+    return render_template("confirmation.html")
+    
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
@@ -345,7 +346,7 @@ def signOut():
         print(session["username"])
         print(request.args['machineName'])
         end_reservations(request.args['machineName'])
-        return redirect("/machine")
+        return redirect("/reservation")
     except:
         return render_template("fail.html",error="Please try signing in and signing out of your account")
 
