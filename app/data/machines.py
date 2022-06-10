@@ -31,6 +31,9 @@ def get_username(id):
 def get_time(id):
     return reservations.get_non_main_value("id",id,"time")
 
+def get_use(id):
+    return reservations.get_non_main_value("id",id,"in_use")
+
 
 def new_reservations(username, machine, time):
     in_use = 1
@@ -51,5 +54,5 @@ def get_opp():
 def get_machines():
     return reservations.get_field("machine_name")
 
-def get_use():
+def get_uses():
     return reservations.get_field("in_use")
