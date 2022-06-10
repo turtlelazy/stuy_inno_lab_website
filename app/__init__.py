@@ -55,7 +55,7 @@ waitlist = {
 def index():
     if session.get('username') is not None:
 
-        return render_template("calendar.html", calendarSchedule=compile_calendar())
+        return render_template("calendar.html", calendarSchedule=compile_calendar(),user=session['username'] )
     else:
         return render_template("homepage.html")
 
@@ -96,7 +96,7 @@ def calendar():
     if session.get('username') is None:
         return redirect("/")
     print(compile_calendar())
-    return render_template("calendar.html", calendarSchedule=compile_calendar())
+    return render_template("calendar.html", calendarSchedule=compile_calendar(), user=session['username'])
 
 
 @app.route("/admin_calendar")
@@ -104,7 +104,7 @@ def admin_calendar():
     if session.get('username') is None or not admin_verification(session["email"]):
         return redirect("/")
     print(compile_calendar())
-    return render_template("admin_calendar.html", calendarSchedule=compile_calendar())
+    return render_template("admin_calendar.html", calendarSchedule=compile_calendar(), user=session['username'])
 
 
 @app.route("/machine", methods=["GET","POST"])
@@ -286,10 +286,10 @@ def waitlistConfirmation():
                     sendemail.send(session["email"], "The " + request.args["machineName"] + " will be available soon")
                     waitlist[request.args["machineName"]] = session["email"]
             else:
-                return "There is already someone on the waitlist. Please try again later."
+                return render_template("fail.html",error="There is already someone on the waitlist. Please try again later.")
         else:
             return render_template("machinelist.html")
-        return "Sent"
+        return render_template("waitlistConfirmation.html")
     except(Exception):
             return render_template("error.html", message="waitlist confirmation error")
     # # try:
@@ -307,19 +307,19 @@ def signOutList():
         return redirect("/")
 
     if (request.args['machineName'] == "3D-printer1"):
-        return render_template("signOut.html", printer1 = "checked")
+        return render_template("signOut.html", printer1="checked", user=session['username'])
     if (request.args['machineName'] == "3D-printer2"):
-        return render_template("signOut.html", printer2 = "checked")
+        return render_template("signOut.html", printer2="checked", user=session['username'])
     if (request.args['machineName'] == "3D-printer3"):
-        return render_template("signOut.html", printer3 = "checked")
+        return render_template("signOut.html", printer3="checked", user=session['username'])
     if (request.args['machineName'] == "3D-printer4"):
-        return render_template("signOut.html", printer4 = "checked")
+        return render_template("signOut.html", printer4="checked", user=session['username'])
     if (request.args['machineName'] == "3D-printer_Stratasys"):
-        return render_template("signOut.html", printer_Stratasys = "checked")
+        return render_template("signOut.html", printer_Stratasys="checked", user=session['username'])
     if (request.args['machineName'] == "laser-cutter"):
-        return render_template("signOut.html", laserCutter = "checked")
+        return render_template("signOut.html", laserCutter="checked", user=session['username'])
     if (request.args['machineName'] == "CNC"):
-        return render_template("signOut.html", CNC = "checked")
+        return render_template("signOut.html", CNC="checked", user=session['username'])
     return render_template("signOut.html")
 
 @app.route("/signOut", methods=["GET","POST"])
@@ -334,10 +334,11 @@ def signOut():
             if usage == 1:
                 end_reservations(request.args['machineName'])
                 return redirect(url_for("reservations"))
-            return("ERROR: This machine is not in use. You may not sign out from a machine not in use.")
+            return render_template("fail.html",error="This machine is not in use. You can't sign out from a machine not in use.")
 
         if (machineUsage[request.args["machineName"]][1] != session["email"]):
-            return("ERROR: You may not sign out from a machine you are not using.")
+            return render_template(
+                "fail.html", error="You can't sign out from a machine you are not using.")
 
         machineUsage[request.args["machineName"]] = []
         if(waitlist[request.args["machineName"]] != "no"):
@@ -347,10 +348,9 @@ def signOut():
         print(session["username"])
         print(request.args['machineName'])
         end_reservations(request.args['machineName'])
-        return("sign out successful")
+        return redirect("/machine")
     except:
-        return("ERROR")
-
+        return render_template("fail.html",error="Please try signing in and signing out of your account")
 
 @app.route("/reservation", methods=["GET","POST"])
 def reservation():
