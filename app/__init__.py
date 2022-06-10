@@ -1,3 +1,5 @@
+from data.schedule import admin_calendar_creation
+from data.schedule import calendar_exists, create_calendar, edit_calendar
 from flask import Flask, render_template, request, session, redirect, url_for
 
 import os
@@ -64,9 +66,22 @@ def index():
 def edit():
     payload = request.get_json()
     print(payload)
-    print(session.get('username'))
+    month = payload["month"]
+    year = payload["year"]
+    schedule = payload["schedule"]
+    print(type(schedule))
+    schedule = json.dumps(schedule)
+    print(schedule)
+    #print(payload)
+    #print(schedule)
+    print(calendar_exists(year,month))
 
-    return ""
+    if(calendar_exists(year,month)):
+        edit_calendar(year,month,schedule)
+    else:
+        admin_calendar_creation(year,month,schedule)
+    
+    return "you should not be here!"
 
 @app.route("/calendar")
 def calendar():

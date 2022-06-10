@@ -5,8 +5,15 @@ import json
 def get_calendar(year,month):
     return calendar.get_main_value_from_conditions(["year","month"],[year,month])[0]
 
+def calendar_exists(year,month):
+    return calendar.get_main_value_from_conditions(["year", "month"], [year, month]) != None
+
 def create_calendar(year,month,schedule_JSON):
     calendar.add_values([schedule_JSON,year, month])
+
+def edit_calendar(year,month,schedule_JSON):
+    calendar.delete_value_from_conditions(["year", "month"], [year, month])
+    create_calendar(year,month,schedule_JSON)
 
 def admin_calendar_creation(year,month,default_Schedule_JSON):
     #schedule_JSON is a list of the schedules in the days of the week from Monday to Sunday, as a list of dictionaries

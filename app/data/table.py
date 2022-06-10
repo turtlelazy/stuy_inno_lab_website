@@ -133,9 +133,52 @@ class Table:
         #{search_type} = '{search_query}'
         self.c.execute(
             f"SELECT {self.search_field} FROM {self.table_name} {conditional_string}")
-        print(conditional_string)
+        #print(conditional_string)
         return self.c.fetchone()
-    
+
+    # def edit_main_value_from_conditions(self, parameters, conditions,new_value):
+    #     if not len(parameters) == len(conditions):
+    #         return "error"
+
+    #     conditional_string = "WHERE "
+    #     for row in range(len(parameters)):
+    #         parameter = parameters[row]
+    #         condition = conditions[row]
+    #         equal_statement = f"{parameter} = '{condition}'"
+
+    #         if not row == 0:
+    #             equal_statement = " AND " + equal_statement
+
+    #         conditional_string += equal_statement
+
+    #     #{search_type} = '{search_query}'
+    #     # print(
+    #     #     f"UPDATE {self.table_name} SET {self.search_field} = {new_value} {conditional_string}")
+
+    #     self.c.execute(
+    #         f'''UPDATE {self.table_name} SET {self.search_field} = '{new_value}' {conditional_string}''')
+
     def update_value(self, field, new, search_query):
         self.c.execute(f"UPDATE {self.table_name} SET {field} = {new} WHERE {self.search_field} = '{search_query}'")
         self.db.commit()
+
+    def delete_value_from_conditions(self,parameters,conditions):
+        if not len(parameters) == len(conditions):
+            return "error"
+
+        conditional_string = "WHERE "
+        for row in range(len(parameters)):
+            parameter = parameters[row]
+            condition = conditions[row]
+            equal_statement = f"{parameter} = '{condition}'"
+
+            if not row == 0:
+                equal_statement = " AND " + equal_statement
+
+            conditional_string += equal_statement
+
+        #{search_type} = '{search_query}'
+        self.c.execute(
+            f"DELETE FROM {self.table_name} {conditional_string}")
+        #print(conditional_string)
+        return True

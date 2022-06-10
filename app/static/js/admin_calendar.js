@@ -1,3 +1,8 @@
+defaultTimePeriods = ["First Period", "Second Period", "Third Period", "Fourth Period", "Fifth Period",
+    "Sixth Period", "Seventh Period", "Eigth Period", "Ninth Period", "Tenth Period", "After School"];
+
+defaultWeekendPeriod = ["Time Range"];
+
 function firstDay(month,year){
     let date = new Date(year,month - 1,1);
 
@@ -143,14 +148,28 @@ function daySelect(event){
     console.log(monthData);
     console.log(monthData[parseInt(highlightedDay)]);
     document.getElementById("schedule").innerHTML = dayScheduleFormatter(monthData[parseInt(highlightedDay) - 1]);
+    date = new Date(year,month-1,highlightedDay);
+    defaultDailyTableSet(isWeekend(date) && document.getElementById("editOption").value == "currentDay");
 }
 
 
 function dayScheduleFormatter(day_JSON) {
+    let nonDefault = Object.keys(day_JSON).length != 11;
+    console.log(nonDefault);
     tableData = formatTableLine(["Period", "Teacher/Info"], true);
-    for(const key in day_JSON){
-        tableData += formatTableLine([key,day_JSON[key]],false);
+    if(nonDefault){
+        for (const key in day_JSON) {
+            tableData += formatTableLine([key, day_JSON[key]], false);
+        }
     }
+    else{
+        for (let i = 0; i < defaultTimePeriods.length;i++) {
+            key = defaultTimePeriods[i];
+            console.log(key);
+            tableData += formatTableLine([key, day_JSON[key]], false);
+        }
+    }
+    
     console.log(day_JSON)
     return tableData;
 }
@@ -166,11 +185,12 @@ function monthSchedule(in_year,in_month){
     return null;
 }
 
-defaultTimePeriods = ["First Period", "Second Period", "Third Period", "Fourth Period", "Fifth Period",
-    "Sixth Period", "Seventh Period", "Eigth Period", "Ninth Period", "Tenth Period", "After School"];
 
-function defaultDailyTableSet(){
+
+function defaultDailyTableSet(isWeekend){
     timePeriods = defaultTimePeriods;
+
+    if(isWeekend) timePeriods = defaultWeekendPeriod;
 
     tableInner = formatTableLine(["Period", "Teacher/Info"], true);
     for(let timePeriod = 0; timePeriod < timePeriods.length;timePeriod++){
@@ -184,7 +204,6 @@ function defaultDailyTableSet(){
 
     document.getElementById("defaultScheduleEdit").innerHTML = tableInner;
     
-
 }
 
 function compileEditInfo(tableID,timePeriods){
@@ -202,6 +221,28 @@ function editSingleDay(day,compiledInfo){
     for(let i = 0; i < calendarSchedule.length; i++){
         if (calendarSchedule[i]["month"] == month && calendarSchedule[i]["year"] == year){
             calendarSchedule[i]["schedule"][day-1] = compiledInfo;
+        }
+    }
+}
+
+function isWeekend(date = new Date()) {
+    return date.getDay() === 6 || date.getDay() === 0;
+}
+
+function editMonth(){
+    compiledInfo = compileEditInfo("defaultScheduleEdit",defaultTimePeriods);
+    for (let i = 0; i < calendarSchedule.length; i++) {
+        if (calendarSchedule[i]["month"] == month && calendarSchedule[i]["year"] == year) {
+            for(let day = 0; day < calendarSchedule[i]["schedule"].length;day++){
+                date = new Date(year,month-1,day+1)
+                isWeekday = !isWeekend(date);
+                if(isWeekday){
+                    calendarSchedule[i]["schedule"][day] = compiledInfo;
+                }
+                else{
+                    calendarSchedule[i]["schedule"][day] = "";
+                }
+            }
         }
     }
 }
@@ -228,4 +269,90 @@ function sendPayload(json) {
     ));
 }
 
+function saveChangesHandler(){
+    options_value = document.getElementById("editOption").value;
+    let monthNumber = null;
+    for (let i = 0; i < calendarSchedule.length; i++) {
+        if (calendarSchedule[i]["month"] == month && calendarSchedule[i]["year"] == year) {
+            monthNumber = i;
+        }
+    }
+
+    if(options_value == "currentMonth"){
+        compiledInfo = compileEditInfo("defaultScheduleEdit",defaultTimePeriods);
+        if(monthNumber){
+            editMonth();
+            console.log(calendarSchedule[monthNumber])
+            sendPayload(calendarSchedule[monthNumber]);
+        }
+
+        else{
+            let weekSchedule = [];
+            for(let i = 0; i < 7; i++){
+                if(i < 5){
+                    weekSchedule.push(compiledInfo)
+                }
+                else{
+                    weekSchedule.push({});
+                }
+            }
+
+            sendPayload({month:month,year:year,schedule:weekSchedule});
+        }
+
+    }
+
+    // console.log('saveing changes');
+    // if(options_value == "currentDay"){
+    //     useList = defaultTimePeriods;
+    //     if(isWeekend(new Date(year,month-1,highlightedDay))) useList = defaultWeekendPeriod;
+
+    //     compiledInfo = compileEditInfo("defaultScheduleEdit",useList);
+    //     editSingleDay(parseInt(highlightedDay),compiledInfo);
+    // }
+    // else{
+    //     editMonth();
+    // }
+
+    // let monthNumber = null;
+    // for (let i = 0; i < calendarSchedule.length; i++) {
+    //     if (calendarSchedule[i]["month"] == month && calendarSchedule[i]["year"] == year) {
+    //         monthNumber = i;
+    //     }
+    // }
+
+    // if(monthNumber){
+    //     let monthInfo = calendarSchedule[i];
+    //     sendPayload(monthInfo);
+    // }
+
+    // else{
+    //     let monthSchedule = [];
+    //     for (let day = 1; day <= daysInMonth(month,year);day++){
+    //         if(!isWeekend(new Date(year,month,day))){
+    //             monthSchedule.push(copmile)
+    //         }
+    //     }
+
+    //     console.log("NULL MONTH");
+    //     sendPayload({"month":month,"year":year,"schedule":compiledInfo});
+    // }
+    
+
+}
+
 defaultDailyTableSet();
+
+function changeTableSet(){
+    options_value = document.getElementById("editOption").value;
+    if(options_value == "currentMonth"){
+        defaultDailyTableSet();
+    }
+    else{
+        date = new Date(year,month-1,highlightedDay)
+        defaultDailyTableSet(isWeekend(date))
+    }
+}
+
+document.getElementById("saveEdit").addEventListener('click',saveChangesHandler);
+document.getElementById("editOption").addEventListener('change',changeTableSet)
