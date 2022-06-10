@@ -321,6 +321,11 @@ def signOut():
 
     try:
         if (len(machineUsage[request.args["machineName"]]) == 0):
+            id = get_latest(request.args['machineName'])
+            usage = get_use(id)
+            if usage == 1:
+                end_reservations(request.args['machineName'])
+                return redirect(url_for("reservations"))
             return("ERROR: This machine is not in use. You may not sign out from a machine not in use.")
 
         if (machineUsage[request.args["machineName"]][1] != session["email"]):

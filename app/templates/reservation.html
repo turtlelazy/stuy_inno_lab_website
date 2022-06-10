@@ -18,6 +18,7 @@
       <th>User</th>
       <th>Time Left</th>
       <th>Use/Sign Out</th>
+      <th>Waitlist</th>
     </tr>
     <tr>
       <td>CNC</td>
@@ -30,6 +31,14 @@
           </form>
         {% else %}
         <form action="/signOutList">
+          <input type="submit" name="machineName" value = "CNC">
+        </form>
+        {% endif %}
+
+      </td>
+      <td>
+        {% if cnc[2] != "not in use" %}
+        <form action="/machine">
           <input type="submit" name="machineName" value = "CNC">
         </form>
         {% endif %}
@@ -53,7 +62,16 @@
         </form>
         {% endif %}
       </td>
+      <td>
+        {% if p1[2] != "not in use" %}
+        <form action="/machine">
+          <input type="submit" name="machineName" value = "3D-printer1">
+        </form>
+        {% endif %}
+
+      </td>
     </tr>
+
     <tr>
       <td>3dp 2</td>
       <td>{{p2[0]}}</td>
@@ -68,6 +86,14 @@
           <input type="submit" name="machineName" value = "3D-printer2">
         </form>
         {% endif %}
+      </td>
+      <td>
+        {% if p2[2] != "not in use" %}
+        <form action="/machine">
+          <input type="submit" name="machineName" value = "3D-printer2">
+        </form>
+        {% endif %}
+
       </td>
     </tr>
     <tr>
@@ -86,6 +112,15 @@
         {% endif %}
 
       </td>
+      <td>
+        {% if p3[2] != "not in use" %}
+        <form action="/machine">
+          <input type="submit" name="machineName" value = "3D-printer3">
+        </form>
+        {% endif %}
+
+      </td>
+      
     </tr>
     <!-- <tr>
       <td>3dp 4</td>
@@ -109,6 +144,14 @@
         {% endif %}
 
       </td>
+      <td>
+        {% if strat[2] != "not in use" %}
+        <form action="/machine">
+          <input type="submit" name="machineName" value = "3D-printer_Stratasys">
+        </form>
+        {% endif %}
+
+      </td>
     </tr>
     <tr>
       <td>Laser</td>
@@ -126,6 +169,15 @@
         {% endif %}
 
       </td>
+      <td>
+        {% if laser[2] != "not in use" %}
+        <form action="/machine">
+          <input type="submit" name="machineName" value = "laser-cutter">
+        </form>
+        {% endif %}
+
+      </td>
+      
     </tr>
   </table>
 
