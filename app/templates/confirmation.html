@@ -1,6 +1,22 @@
 <html>
+<head>
+    <title>Confirmation</title>
+    <link rel="stylesheet" href="../static/css/style.css">
 
-Thank you for filling out the form!
-<a href="{{ url_for('reservation') }}">machine table</a>
+</head>
+<body>
+    <div class="topnav">
+        <a href="/">Home</a>
+        <a href="/admin_calendar">Admin Portal</a>
+        <a href="/reservation">Machines</a>
+        <a href="/logout">Logout</a>
+        <p>{{user}}</p>
+    </div>
+
+    <h1>Thank you for filling out the form!</h1>
+    <a href="{{ url_for('reservation') }}">Click here to return to the machine table!</a>
+
+</body>
+
 
 </html>

@@ -1,14 +1,28 @@
 <html>
+  <head>
+    <title>Confirmation</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+  
+  </head>
+  
+  <body>
+    <div class="topnav">
+      <a href="/">Home</a>
+      <a href="/admin_calendar">Admin Portal</a>
+      <a href="/reservation">Machines</a>
+      <a href="/logout">Logout</a>
+      <p>{{user}}</p>
+    </div>
+  <h1>Waitlist</h1>
+  <p>The {{machineName}} is currently being utilized. Would you like to add yourself to the waitlist?.</p>
+  <form action = "/waitlistConfirmation">
 
-The {{machineName}} is currently being utilized. Would you like to add yourself to the waitlist?.
-<form action = "/waitlistConfirmation">
+    <br>
+      <input type="hidden" name = "machineName" value={{machineName}}>
 
-  <br>
-    <input type="hidden" name = "machineName" value={{machineName}}>
+    <input type="submit" name="submit" value= "yes">
+    <input type="submit" name="submit" value= "no">
 
-  <input type="submit" name="submit" value= "yes">
-  <input type="submit" name="submit" value= "no">
-
-</form>
-
+    </form>
+  </body>
 </html>
