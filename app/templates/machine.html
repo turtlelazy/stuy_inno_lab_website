@@ -1,7 +1,19 @@
 <html>
+  <head>
+    <title>Reserve a Machine!</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+  </head>
 <body>
+  <div class="topnav">
+    <a href="/" class="active">Home</a>
+    <a href="/admin_calendar">Admin Portal</a>
+    <a href="/reservation">Machines</a>
+    <a href="/logout">Logout</a>
+  </div>
+
+  <h1>Machine Reservation</h1>
   <form action = "/confirmation">
-    Hi {{user}}, how long are you using the <span id = "mt"> machine </span> for?
+    Hi {{user}}, how long do you plan on using this <span id = "mt"> machine </span> for (in minutes)?
 
     <br>
     <br>

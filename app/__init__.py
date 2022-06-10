@@ -134,7 +134,11 @@ def confirmation():
     if session.get('username') is None:
         return redirect("/")
     print(session["email"])
-    int(request.args["time"])
+    try:
+        int(request.args["time"])
+    except:
+        return render_template("machine.html", machineName=request.args["machineName"], user=session["username"], error="Please enter an integer number of minutes")
+
     if (len(machineUsage[request.args["machineName"]]) == 0):
         machineUsage[request.args["machineName"]].append(datetime.now() + timedelta(minutes = int(request.args["time"])))
         machineUsage[request.args["machineName"]].append(session['email'])
